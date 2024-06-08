@@ -13,7 +13,7 @@ class _AuthNetworkService implements AuthNetworkService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://172.25.38.67:5000';
+    baseUrl ??= 'http://172.25.38.67:5000/api/v1';
   }
 
   final Dio _dio;
@@ -35,7 +35,7 @@ class _AuthNetworkService implements AuthNetworkService {
     )
             .compose(
               _dio.options,
-              '/api/v1/login',
+              '/login',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -65,7 +65,7 @@ class _AuthNetworkService implements AuthNetworkService {
     )
             .compose(
               _dio.options,
-              '/api/v1/register',
+              '/register',
               queryParameters: queryParameters,
               data: _data,
             )

@@ -46,11 +46,12 @@ class _LoginWithEmailViewState extends State<LoginWithEmailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
           icon: SvgPicture.asset("assets/components/back-button-2.svg"),
           onPressed: () {
-            context.router.pop();
+            context.router.maybePop();
           },
           splashRadius: 20,
         ),

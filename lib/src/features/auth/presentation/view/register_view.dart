@@ -10,7 +10,6 @@ import 'package:foodmania/src/features/auth/presentation/widgets/auth_field.dart
 import 'package:foodmania/src/features/auth/presentation/widgets/checkbox_with_text.dart';
 import 'package:foodmania/src/features/auth/presentation/widgets/footer_text.dart';
 import 'package:foodmania/src/utils/constants/extensions.dart';
-
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/text_theme.dart';
 import '../../../../utils/responsive.dart';
@@ -50,14 +49,14 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
           icon: SvgPicture.asset(
             "assets/components/back-button-2.svg",
           ),
           onPressed: () {
-            context.router.canPop();
+            context.router.maybePop();
           },
           splashRadius: 20,
         ),

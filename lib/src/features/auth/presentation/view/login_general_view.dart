@@ -3,14 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:foodmania/src/features/auth/presentation/widgets/auth_button.dart';
-import 'package:foodmania/src/features/auth/presentation/widgets/underline.dart';
 import 'package:foodmania/src/utils/constants/colors.dart';
 import 'package:foodmania/src/utils/constants/extensions.dart';
-import 'package:foodmania/src/utils/responsive.dart';
-
 import '../../../../config/router/app_router.dart';
 import '../../../../utils/constants/text_theme.dart';
-import '../widgets/auth_methods_button.dart';
 import '../widgets/footer_text.dart';
 
 @RoutePage()
@@ -22,15 +18,6 @@ class LoginGeneralView extends StatelessWidget {
     final bool isPlatformWeb = context.mediaQueryWidth > 768;
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: SvgPicture.asset(
-            "assets/components/back-button-2.svg",
-          ),
-          onPressed: () {},
-          splashRadius: 20,
-        ),
-      ),
       body: SafeArea(
         child: Row(
           children: [
@@ -42,7 +29,9 @@ class LoginGeneralView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset("assets/components/food4.png"),
-                    const SizedBox(height: 30,),
+                    const SizedBox(
+                      height: 30,
+                    ),
                     Text(
                       "FoodMania",
                       style: ConstantTextTheme.displayLarge!.copyWith(
@@ -50,7 +39,9 @@ class LoginGeneralView extends StatelessWidget {
                         fontSize: 100,
                       ),
                     ),
-                    const SizedBox(height: 30,),
+                    const SizedBox(
+                      height: 30,
+                    ),
                     Text(
                       "Xoş gəldiniz",
                       style: ConstantTextTheme.displayMedium!.copyWith(
@@ -86,30 +77,16 @@ class LoginGeneralView extends StatelessWidget {
   Column _buildAuthMethods(BuildContext context) {
     return Column(
       children: [
-        const AuthMethodButton(
-          title: "Google hesabı ilə davam et",
-          svgTitle: "google",
+        const SizedBox(height: 220),
+        SvgPicture.asset(
+          'assets/components/foodmania_logo.svg',
+          colorFilter: ColorFilter.mode(
+            ConstantColors.primaryColor,
+            BlendMode.srcIn,
+          ),
         ),
         SizedBox(
-          height: 12.h,
-        ),
-        const AuthMethodButton(
-          title: "Facebook hesabı ilə davam et",
-          svgTitle: "facebook",
-        ),
-        SizedBox(
-          height: 12.h,
-        ),
-        const AuthMethodButton(
-          title: "Apple hesabı ilə davam et",
-          svgTitle: "apple",
-        ),
-        SizedBox(
-          height: 51.h,
-        ),
-        _buildUnderline(),
-        SizedBox(
-          height: 52.h,
+          height: 60.h,
         ),
         AuthButton(
           title: "Şifrə ilə daxil ol",
@@ -124,40 +101,6 @@ class LoginGeneralView extends StatelessWidget {
           leftTitle: "Hesabın yoxdur? ",
           rigthTitle: "Elə indi yarat",
           route: RegisterRoute(),
-        ),
-      ],
-    );
-  }
-
-  Row _buildUnderline() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Expanded(
-          child: Responsive(
-            maxWidth: 200,
-            child: Underline(
-              width: 120.w,
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: 12,
-        ),
-        const Text(
-          "ya da",
-          style: TextStyle(fontSize: 16),
-        ),
-        const SizedBox(
-          width: 12,
-        ),
-        Expanded(
-          child: Responsive(
-            maxWidth: 200,
-            child: Underline(
-              width: 120.w,
-            ),
-          ),
         ),
       ],
     );

@@ -32,7 +32,7 @@ class ManiacButton extends StatelessWidget {
       onPressed: onTap,
       child: Text(
         title,
-        style: ConstantTextTheme.displayLarge!.copyWith(fontSize: 18),
+        style: ConstantTextTheme.displayLarge!.copyWith(fontSize: 18, color: Colors.white),
       ),
     );
   }

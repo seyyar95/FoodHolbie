@@ -53,6 +53,7 @@ class _HomeViewState extends State<HomeView> {
       'Eggs',
       'Badimcan',
       'Kartof',
+      'Tomato'
     ];
     List<String> fruits = [
       'Alma',
@@ -114,9 +115,11 @@ class _HomeViewState extends State<HomeView> {
                       //_loadingOverlay.show(context);
                     } else if (state is HomeRecipeFailed) {
                       //_loadingOverlay.hide();
-                      showErrorSnack(
-                        context,
-                        errorText: state.error!.toString(),
+                      showAboutDialog(
+                        context: context,
+                        children: [
+                          Text(state.error!.toString()),
+                        ],
                       );
                     } else {
                       // _loadingOverlay.hide();

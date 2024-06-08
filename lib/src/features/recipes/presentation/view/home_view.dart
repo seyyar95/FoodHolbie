@@ -53,14 +53,7 @@ class _HomeViewState extends State<HomeView> {
       'Eggs',
       'Badimcan',
       'Kartof',
-      'Tomato'
-    ];
-    List<String> fruits = [
-      'Alma',
-      'Armud',
-      'Banan',
-      'Mango',
-      'Çiyələk',
+      'Tomato',
     ];
 
     return Scaffold(
@@ -96,8 +89,7 @@ class _HomeViewState extends State<HomeView> {
                           padding: EdgeInsets.only(bottom: 32.h),
                           child: wrapping(chosenItems, true, context),
                         ),
-                      accordion('Tərəvəzlər', vegetables, context),
-                      accordion('Meyvələr', fruits, context),
+                      accordion('Ingredients', vegetables, context),
                     ],
                   ),
                 ),
@@ -167,7 +159,6 @@ class _HomeViewState extends State<HomeView> {
                         ),
                         itemBuilder: (context, index) => RecipeCard(
                           name: state.recipes![0].name,
-                          preparationTime: state.recipes![0].time,
                         ),
                         itemCount: state.recipes!.length,
                       );

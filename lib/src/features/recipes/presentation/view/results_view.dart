@@ -20,7 +20,7 @@ class ResultsView extends StatelessWidget {
           icon: SvgPicture.asset(
             "assets/components/back-button-2.svg",
           ),
-          onPressed: () => context.router.pop(),
+          onPressed: () => context.router.maybePop(),
         ),
       ),
       body: Padding(
@@ -37,7 +37,6 @@ class ResultsView extends StatelessWidget {
           ),
           itemBuilder: (context, index) => RecipeCard(
             name: recipes[index].name,
-            preparationTime: recipes[index].time,
           ),
           itemCount: recipes.length,
         ),

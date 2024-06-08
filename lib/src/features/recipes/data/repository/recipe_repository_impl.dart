@@ -31,9 +31,9 @@ class RecipeRepositoryImpl implements RecipeRespository {
             ),
           );
         }
-
+        print(httpResponse.data);
         List<RecipeModel> recipes = List<RecipeModel>.from(
-          httpResponse.data['recipes'].map(
+          httpResponse.data.map(
             (e) => RecipeModel.fromJson(e),
           ),
         );

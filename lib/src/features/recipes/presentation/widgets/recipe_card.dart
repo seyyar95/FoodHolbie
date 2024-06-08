@@ -38,10 +38,6 @@ class _RecipeCardState extends State<RecipeCard> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Align(
-                alignment: Alignment.centerLeft,
-                child: _buildTimeInfo(),
-              ),
-              Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -91,40 +87,6 @@ class _RecipeCardState extends State<RecipeCard> {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTimeInfo() {
-    return Responsive(
-      maxWidth: 80,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
-        margin: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.65),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              "assets/components/clock.svg",
-              width: 10,
-            ),
-            const SizedBox(width: 4),
-            Flexible(
-              child: Text(
-                "${widget.preparationTime ?? 1} min",
-                style: ConstantTextTheme.displayLarge?.copyWith(
-                  fontSize: 10,
-                  color: Colors.white,
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ],
         ),
       ),
     );

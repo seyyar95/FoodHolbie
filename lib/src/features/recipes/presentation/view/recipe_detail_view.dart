@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodmania/src/features/recipes/presentation/widgets/custom_sliver_appbar.dart';
@@ -7,6 +8,7 @@ import 'package:foodmania/src/utils/constants/extensions.dart';
 import 'package:foodmania/src/utils/constants/text_theme.dart';
 
 import '../../../../utils/responsive.dart';
+import '../bloc/recipe_detail/recipe_detail_bloc.dart';
 import '../widgets/directions.dart';
 import '../widgets/ingredients.dart';
 
@@ -40,46 +42,56 @@ class RecipeDetailView extends StatelessWidget {
             pinned: true,
           ),
           SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildFoodDescription(
-                  description:
-                      "This One Pot Lightly Creamy Pasta is quick, delicious, and your new favorite pasta dish. Cemembert, mushrooms, tomatoes, peas, and basil make up this unbelievably amazing dish!",
-                ),
-                SizedBox(
-                  height: 44.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+            child: BlocBuilder<RecipeDetailBloc, RecipeDetailState>(
+              builder: (context, state) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildShortInformation(
-                      iconAsset: "assets/components/clock_icon.svg",
-                      text: "20 min",
-                      context: context,
+                    _buildFoodDescription(
+                      description:
+                          "This One Pot Lightly Creamy Pasta is quick, delicious, and your new favorite pasta dish. Cemembert, mushrooms, tomatoes, peas, and basil make up this unbelievably amazing dish!",
                     ),
                     SizedBox(
-                      width: 32.w,
+                      height: 44.h,
                     ),
-                    _buildShortInformation(
-                      iconAsset: "assets/components/fire_icon.svg",
-                      text: "200",
-                      context: context,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildShortInformation(
+                          iconAsset: "assets/components/clock_icon.svg",
+                          text: "20 min",
+                          context: context,
+                        ),
+                        SizedBox(
+                          width: 32.w,
+                        ),
+                        _buildShortInformation(
+                          iconAsset: "assets/components/fire_icon.svg",
+                          text: "200",
+                          context: context,
+                        ),
+                      ],
                     ),
+                    SizedBox(
+                      height: 88.h,
+                    ),
+                    if (state is RecipeDetailSuccess)
+                      Ingredients(
+                        ingredients: state.detail!.ingredients!,
+                      ),
+                    SizedBox(
+                      height: 40.h,
+                    ),
+                    if (state is RecipeDetailSuccess)
+                      DirectionsStepper(
+                        steps: state.detail!.steps!,
+                      ),
+                    SizedBox(
+                      height: 40.h,
+                    )
                   ],
-                ),
-                SizedBox(
-                  height: 88.h,
-                ),
-                const Ingredients(),
-                SizedBox(
-                  height: 40.h,
-                ),
-                const DirectionsStepper(),
-                SizedBox(
-                  height: 40.h,
-                )
-              ],
+                );
+              },
             ),
           )
         ],

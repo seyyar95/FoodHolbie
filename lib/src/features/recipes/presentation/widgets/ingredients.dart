@@ -4,8 +4,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:foodmania/src/utils/constants/text_theme.dart';
 import 'package:foodmania/src/utils/responsive.dart';
 
+import '../../domain/entity/recipe_entity.dart';
+
 class Ingredients extends StatefulWidget {
-  const Ingredients({super.key});
+  final List<IngredientEntity> ingredients;
+  const Ingredients({super.key, required this.ingredients});
 
   @override
   State<Ingredients> createState() => _IngredientsState();
@@ -58,21 +61,29 @@ class _IngredientsState extends State<Ingredients> {
         children: [
           _buildServeCounter(),
           SizedBox(height: 28.h),
-          _buildIngredientItem(
-            ingredientPhoto: "assets/components/carrot_mock.png",
-            ingredientName: "Pasta",
-            ingredientAmount: "200g",
+          Column(
+            children: List.generate(
+              widget.ingredients.length,
+              (index) {
+                IngredientEntity ingredient = widget.ingredients[index];
+                return _buildIngredientItem(
+                  ingredientPhoto: "assets/components/carrot_mock.png",
+                  ingredientName: ingredient.name!,
+                  ingredientAmount: ingredient.quantity!,
+                );
+              },
+            ),
           ),
-          _buildIngredientItem(
-            ingredientPhoto: "assets/components/carrot_mock.png",
-            ingredientName: "Carrot",
-            ingredientAmount: "5 cup",
-          ),
-          _buildIngredientItem(
-            ingredientPhoto: "assets/components/carrot_mock.png",
-            ingredientName: "Paprika tozu",
-            ingredientAmount: "6",
-          ),
+          // _buildIngredientItem(
+          //   ingredientPhoto: "assets/components/carrot_mock.png",
+          //   ingredientName: "Carrot",
+          //   ingredientAmount: "5 cup",
+          // ),
+          // _buildIngredientItem(
+          //   ingredientPhoto: "assets/components/carrot_mock.png",
+          //   ingredientName: "Paprika tozu",
+          //   ingredientAmount: "6",
+          // ),
           SizedBox(
             height: 40.h,
           ),

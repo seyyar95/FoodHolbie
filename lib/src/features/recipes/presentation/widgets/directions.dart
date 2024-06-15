@@ -6,8 +6,10 @@ import 'package:foodmania/src/utils/constants/colors.dart';
 import '../../../../utils/constants/text_theme.dart';
 
 class DirectionsStepper extends StatelessWidget {
+  final List<String> steps;
   const DirectionsStepper({
     super.key,
+    required this.steps,
   });
 
   @override
@@ -22,10 +24,18 @@ class DirectionsStepper extends StatelessWidget {
             style: ConstantTextTheme.displayLarge?.copyWith(fontSize: 20),
           ),
           SizedBox(height: 36.h),
-          _buildStepperItem("1", ''),
-          _buildStepperItem("2", ''),
-          _buildStepperItem("3", ''),
-          _buildStepperItem("4", '', isLast: true)
+          Column(
+            children: List.generate(
+              steps.length,
+              (index) {
+                return _buildStepperItem("1", steps[index],
+                    isLast: index == steps.length - 1);
+              },
+            ),
+          ),
+          // _buildStepperItem("2", ''),
+          // _buildStepperItem("3", ''),
+          // _buildStepperItem("4", '', isLast: true)
         ],
       ),
     );

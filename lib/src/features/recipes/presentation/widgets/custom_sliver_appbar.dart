@@ -19,7 +19,6 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     required this.recipeTitle,
   });
 
-
   @override
   Widget build(
     BuildContext context,
@@ -42,7 +41,9 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
           right: isPlatformWeb ? 100.w : 16.w,
           child: Opacity(
             opacity: 1 - shrinkOffset / expandedHeight,
-            child: const RecipeTitle(),
+            child: RecipeTitle(
+              name: recipeTitle,
+            ),
           ),
         )
       ],
@@ -53,7 +54,11 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     return AppBar(
       title: Opacity(
         opacity: shrinkOffset / expandedHeight,
-        child: Text(recipeTitle, style: ConstantTextTheme.displayLarge?.copyWith(fontSize: 18, color: Colors.black), ),
+        child: Text(
+          recipeTitle,
+          style: ConstantTextTheme.displayLarge
+              ?.copyWith(fontSize: 18, color: Colors.black),
+        ),
       ),
       backgroundColor: Colors.white.withOpacity(shrinkOffset / expandedHeight),
       centerTitle: true,
@@ -63,7 +68,7 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
           "assets/components/dark_back_button.svg",
         ),
         onPressed: () {
-          context.router.pop();
+          context.router.maybePop();
         },
         splashRadius: 25,
       ),
@@ -96,7 +101,7 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 
   Widget buildBackground(double shrinkOffset) => Opacity(
         opacity: 1 - shrinkOffset / expandedHeight,
-        child: Image.asset(imageAsset, fit: BoxFit.cover),
+        child: Image.network(imageAsset, fit: BoxFit.cover),
       );
 
   @override
@@ -109,6 +114,4 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
     return true;
   }
-
-
 }

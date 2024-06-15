@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodmania/src/config/router/app_router.dart';
-import 'package:foodmania/src/features/recipes/presentation/bloc/search_recipe_bloc/search_recipe_bloc.dart';
+import 'package:foodmania/src/features/recipes/presentation/bloc/search_recipe/search_recipe_bloc.dart';
 import 'package:foodmania/src/features/recipes/presentation/widgets/recipe_card.dart';
 import 'package:foodmania/src/utils/constants/extensions.dart';
 import 'package:foodmania/src/utils/constants/snackbars.dart';
@@ -94,7 +94,8 @@ class _RecipeViewState extends State<RecipeView> {
                     crossAxisSpacing: 15,
                   ),
                   delegate: SliverChildBuilderDelegate(
-                    (context, index) => const RecipeCard(name: "BigMac"),
+                    (context, index) =>
+                        const SizedBox(), //const RecipeCard(name: "BigMac"),
                     childCount: 16,
                   ),
                 ),
@@ -114,9 +115,7 @@ class _RecipeViewState extends State<RecipeView> {
     return ListView.separated(
       scrollDirection: Axis.horizontal,
       physics: const BouncingScrollPhysics(),
-      itemBuilder: (context, index) => const RecipeCard(
-        name: "BigMac",
-      ),
+      itemBuilder: (context, index) => const SizedBox(),
       separatorBuilder: (context, index) => const SizedBox(
         width: 16,
       ),

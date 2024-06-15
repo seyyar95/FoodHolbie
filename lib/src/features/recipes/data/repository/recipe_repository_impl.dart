@@ -12,9 +12,9 @@ class RecipeRepositoryImpl implements RecipeRespository {
   const RecipeRepositoryImpl(this._recipeSearchService);
   @override
   Future<DataState<List<RecipeModel>>> homeSearch(
-      List<String> ingredients) async {
+    List<String> ingredients,
+  ) async {
     try {
-      
       final httpResponse = await _recipeSearchService.homeSearch(
         {
           'ingredients': ingredients,
@@ -31,7 +31,6 @@ class RecipeRepositoryImpl implements RecipeRespository {
             ),
           );
         }
-        print(httpResponse.data);
         List<RecipeModel> recipes = List<RecipeModel>.from(
           httpResponse.data.map(
             (e) => RecipeModel.fromJson(e),
@@ -60,7 +59,7 @@ class RecipeRepositoryImpl implements RecipeRespository {
   @override
   Future<DataState<List<RecipeEntity>>> searchByName(String name) async {
     try {
-      final httpResponse = await _recipeSearchService.homeSearch(
+      final httpResponse = await _recipeSearchService.searchByName(
         {
           "name": name,
         },
@@ -76,10 +75,14 @@ class RecipeRepositoryImpl implements RecipeRespository {
             ),
           );
         }
-
-        return DataSuccess(
-          httpResponse.data,
+        print(httpResponse.data);
+        List<RecipeModel> recipes = List<RecipeModel>.from(
+          httpResponse.data.map(
+            (e) => RecipeModel.fromJson(e),
+          ),
         );
+
+        return DataSuccess(recipes);
       } else {
         return DataFailed(
           DioException(
@@ -133,5 +136,33 @@ class RecipeRepositoryImpl implements RecipeRespository {
   @override
   Future<DataState<List<RecipeEntity>>> saveRecipe(int recipeId) {
     throw UnimplementedError();
+  }
+
+  @override
+  Future<DataState<DetailEntity>> recipeDetail(int id) async {
+    try {
+      final httpResponse = await _recipeSearchService.recipeDetail(
+        {
+          'id': id,
+        },
+      );
+      if (httpResponse.response.statusCode == 200) {
+        return DataSuccess(
+          DetailModel.fromJson(httpResponse.data),
+        );
+      } else {
+        return DataFailed(
+          DioException(
+            requestOptions: httpResponse.response.requestOptions,
+            error: httpResponse.response.data,
+            type: DioExceptionType.badResponse,
+          ),
+        );
+      }
+    } on DioException catch (e) {
+      return DataFailed(e);
+    } catch (e) {
+      rethrow;
+    }
   }
 }

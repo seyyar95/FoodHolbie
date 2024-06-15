@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodmania/src/config/router/app_router.dart';
-import 'package:foodmania/src/features/recipes/presentation/bloc/home_recipe_bloc/home_recipe_bloc.dart';
-import 'package:foodmania/src/features/recipes/presentation/bloc/home_recipe_bloc/home_recipe_event.dart';
-import 'package:foodmania/src/features/recipes/presentation/bloc/home_recipe_bloc/home_recipe_state.dart';
+import 'package:foodmania/src/features/recipes/presentation/bloc/home_recipe/home_recipe_bloc.dart';
+import 'package:foodmania/src/features/recipes/presentation/bloc/home_recipe/home_recipe_event.dart';
+import 'package:foodmania/src/features/recipes/presentation/bloc/home_recipe/home_recipe_state.dart';
 import 'package:foodmania/src/features/recipes/presentation/provider/home_view_provider.dart';
 import 'package:foodmania/src/features/recipes/presentation/widgets/home_tags.dart';
 import 'package:foodmania/src/utils/constants/extensions.dart';
@@ -54,6 +54,7 @@ class _HomeViewState extends State<HomeView> {
       'Badimcan',
       'Kartof',
       'Tomato',
+      'Cheese',
     ];
 
     return Scaffold(
@@ -82,7 +83,6 @@ class _HomeViewState extends State<HomeView> {
                     ),
                     children: [
                       const SizedBox(height: kIsWeb ? 0 : 24),
-                      const HomeViewTextField(),
                       if (chosenItems.isNotEmpty)
                         Container(
                           width: MediaQuery.of(context).size.width,
@@ -157,9 +157,7 @@ class _HomeViewState extends State<HomeView> {
                           mainAxisSpacing: 16,
                           crossAxisSpacing: 15,
                         ),
-                        itemBuilder: (context, index) => RecipeCard(
-                          name: state.recipes![0].name,
-                        ),
+                        itemBuilder: (context, index) => const SizedBox(),
                         itemCount: state.recipes!.length,
                       );
                     }

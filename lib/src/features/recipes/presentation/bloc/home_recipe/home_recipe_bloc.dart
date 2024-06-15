@@ -2,8 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodmania/src/core/resources/data_state.dart';
 import 'package:foodmania/src/core/usecases/use_case.dart';
-import 'package:foodmania/src/features/recipes/presentation/bloc/home_recipe_bloc/home_recipe_event.dart';
-import 'package:foodmania/src/features/recipes/presentation/bloc/home_recipe_bloc/home_recipe_state.dart';
+import 'package:foodmania/src/features/recipes/presentation/bloc/home_recipe/home_recipe_event.dart';
+import 'package:foodmania/src/features/recipes/presentation/bloc/home_recipe/home_recipe_state.dart';
 
 class HomeRecipeBloc extends Bloc<HomeRecipeEvents, HomeRecipeState> {
   final HomeSearchRecipeUseCase _homeSearchRecipeUseCase;

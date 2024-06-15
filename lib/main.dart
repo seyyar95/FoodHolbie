@@ -7,10 +7,10 @@ import 'package:foodmania/src/config/router/app_router.dart';
 import 'package:foodmania/src/config/themes/app_theme.dart';
 import 'package:foodmania/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:foodmania/src/features/auth/presentation/bloc/register/register_bloc.dart';
-import 'package:foodmania/src/features/recipes/presentation/bloc/home_recipe_bloc/home_recipe_bloc.dart';
-import 'package:foodmania/src/features/recipes/presentation/bloc/search_recipe_bloc/search_recipe_bloc.dart';
+import 'package:foodmania/src/features/recipes/presentation/bloc/home_recipe/home_recipe_bloc.dart';
+import 'package:foodmania/src/features/recipes/presentation/bloc/recipe_detail/recipe_detail_bloc.dart';
+import 'package:foodmania/src/features/recipes/presentation/bloc/search_recipe/search_recipe_bloc.dart';
 import 'package:foodmania/src/features/recipes/presentation/provider/home_view_provider.dart';
-import 'package:foodmania/src/features/recipes/presentation/view/index.dart';
 import 'package:provider/provider.dart';
 
 import 'bloc_observer.dart';
@@ -38,6 +38,9 @@ Future<void> main() async {
         ),
         BlocProvider<HomeRecipeBloc>(
           create: (_) => s1<HomeRecipeBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => s1<RecipeDetailBloc>(),
         ),
         BlocProvider(
           create: (_) => s1<SearchRecipeBloc>(),

@@ -37,6 +37,8 @@ class ResultsView extends StatelessWidget {
           ),
           itemBuilder: (context, index) => RecipeCard(
             name: recipes[index].name,
+            id: recipes[index].id!,
+            url: recipes[index].url,
           ),
           itemCount: recipes.length,
         ),

@@ -64,14 +64,14 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
     RecipeDetailRoute.name: (routeData) {
-      final pathParams = routeData.inheritedPathParams;
-      final args = routeData.argsAs<RecipeDetailRouteArgs>(
-          orElse: () => RecipeDetailRouteArgs(id: pathParams.getInt('id')));
+      final args = routeData.argsAs<RecipeDetailRouteArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: RecipeDetailView(
           key: args.key,
           id: args.id,
+          name: args.name,
+          url: args.url,
         ),
       );
     },
@@ -85,12 +85,6 @@ abstract class _$AppRouter extends RootStackRouter {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const RegisterView(),
-      );
-    },
-    ResultRecipeRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const ResultRecipeView(),
       );
     },
     ResultsRoute.name: (routeData) {
@@ -242,12 +236,16 @@ class RecipeDetailRoute extends PageRouteInfo<RecipeDetailRouteArgs> {
   RecipeDetailRoute({
     Key? key,
     required int id,
+    required String name,
+    required String url,
     List<PageRouteInfo>? children,
   }) : super(
           RecipeDetailRoute.name,
           args: RecipeDetailRouteArgs(
             key: key,
             id: id,
+            name: name,
+            url: url,
           ),
           rawPathParams: {'id': id},
           initialChildren: children,
@@ -263,15 +261,21 @@ class RecipeDetailRouteArgs {
   const RecipeDetailRouteArgs({
     this.key,
     required this.id,
+    required this.name,
+    required this.url,
   });
 
   final Key? key;
 
   final int id;
 
+  final String name;
+
+  final String url;
+
   @override
   String toString() {
-    return 'RecipeDetailRouteArgs{key: $key, id: $id}';
+    return 'RecipeDetailRouteArgs{key: $key, id: $id, name: $name, url: $url}';
   }
 }
 
@@ -299,20 +303,6 @@ class RegisterRoute extends PageRouteInfo<void> {
         );
 
   static const String name = 'RegisterRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
-/// [ResultRecipeView]
-class ResultRecipeRoute extends PageRouteInfo<void> {
-  const ResultRecipeRoute({List<PageRouteInfo>? children})
-      : super(
-          ResultRecipeRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'ResultRecipeRoute';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }

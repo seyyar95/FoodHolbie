@@ -14,6 +14,10 @@ abstract class HomeSearchRecipeUseCase<Type> {
   Future<Type> call(List<String> ingredients);
 }
 
+abstract class RecipeDetailUseCase<Type> {
+  Future<Type> call(int id);
+}
+
 abstract class SearchRecipeByNameUseCase<Type> {
   Future<Type> call(String name);
 }

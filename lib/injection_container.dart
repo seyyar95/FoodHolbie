@@ -12,11 +12,13 @@ import 'package:foodmania/src/features/recipes/data/datasource/search_recipe_ser
 import 'package:foodmania/src/features/recipes/data/repository/recipe_repository_impl.dart';
 import 'package:foodmania/src/features/recipes/domain/repository/recipe_repository.dart';
 import 'package:foodmania/src/features/recipes/domain/usecase/home_recipe_usecase.dart';
+import 'package:foodmania/src/features/recipes/domain/usecase/recipe_detail_usecase.dart';
 import 'package:foodmania/src/features/recipes/domain/usecase/save_recipe_usecase.dart';
 import 'package:foodmania/src/features/recipes/domain/usecase/search_initial_usecase.dart';
 import 'package:foodmania/src/features/recipes/domain/usecase/searh_recipe_usecase.dart';
-import 'package:foodmania/src/features/recipes/presentation/bloc/home_recipe_bloc/home_recipe_bloc.dart';
-import 'package:foodmania/src/features/recipes/presentation/bloc/search_recipe_bloc/search_recipe_bloc.dart';
+import 'package:foodmania/src/features/recipes/presentation/bloc/home_recipe/home_recipe_bloc.dart';
+import 'package:foodmania/src/features/recipes/presentation/bloc/recipe_detail/recipe_detail_bloc.dart';
+import 'package:foodmania/src/features/recipes/presentation/bloc/search_recipe/search_recipe_bloc.dart';
 import 'package:get_it/get_it.dart';
 
 GetIt s1 = GetIt.instance;
@@ -57,6 +59,10 @@ Future<void> initializeDependencies() async {
     () => HomeRecipeUseCaseImpl(s1<RecipeRespository>()),
   );
 
+  s1.registerLazySingleton<RecipeDetailUseCaseImpl>(
+    () => RecipeDetailUseCaseImpl(s1<RecipeRespository>()),
+  );
+
   s1.registerLazySingleton<SearchRecipeByNameUseCaseImpl>(
     () => SearchRecipeByNameUseCaseImpl(s1<RecipeRespository>()),
   );
@@ -78,6 +84,9 @@ Future<void> initializeDependencies() async {
   );
   s1.registerFactory<HomeRecipeBloc>(
     () => HomeRecipeBloc(s1<HomeRecipeUseCaseImpl>()),
+  );
+  s1.registerFactory<RecipeDetailBloc>(
+    () => RecipeDetailBloc(s1<RecipeDetailUseCaseImpl>()),
   );
 
   s1.registerFactory<SearchRecipeBloc>(

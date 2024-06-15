@@ -22,16 +22,17 @@ class DirectionsStepper extends StatelessWidget {
             style: ConstantTextTheme.displayLarge?.copyWith(fontSize: 20),
           ),
           SizedBox(height: 36.h),
-          _buildStepperItem("1"),
-          _buildStepperItem("2"),
-          _buildStepperItem("3"),
-          _buildStepperItem("4", isLast: true)
+          _buildStepperItem("1", ''),
+          _buildStepperItem("2", ''),
+          _buildStepperItem("3", ''),
+          _buildStepperItem("4", '', isLast: true)
         ],
       ),
     );
   }
 
-  Widget _buildStepperItem(String step, {bool isLast = false}) {
+  Widget _buildStepperItem(String stepNumber, String step,
+      {bool isLast = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -55,7 +56,7 @@ class DirectionsStepper extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 16),
               child: Text(
-                "Step $step",
+                "Step $stepNumber",
                 style: ConstantTextTheme.displayLarge?.copyWith(fontSize: 16),
               ),
             ),
@@ -74,7 +75,7 @@ class DirectionsStepper extends StatelessWidget {
                     )
                   : null),
           child: Text(
-            'Add Olive Oil ( as needed) to pasta pot, heat on low, and add Shallot ( 1), cook for 1 minute. Add Garlic ( 3 cloves) and cook for 30 seconds.',
+            step,
             style: ConstantTextTheme.displayMedium?.copyWith(fontSize: 14),
           ),
         ),

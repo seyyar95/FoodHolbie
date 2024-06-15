@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:foodmania/src/core/resources/dio_cookie_manager.dart';
-import 'package:foodmania/src/features/recipes/data/model/recipe_model.dart';
 import 'package:foodmania/src/utils/constants/api_call_constants.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -21,6 +20,16 @@ abstract class RecipeSearchService {
   }
   @GET(recipeEndPoint)
   Future<HttpResponse> homeSearch(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @GET(detailEndPoint)
+  Future<HttpResponse> recipeDetail(
+    @Body() Map<String, dynamic> body,
+  );
+
+  @GET(searchEndPoint)
+  Future<HttpResponse> searchByName(
     @Body() Map<String, dynamic> body,
   );
 

@@ -13,7 +13,13 @@ import '../widgets/ingredients.dart';
 @RoutePage()
 class RecipeDetailView extends StatelessWidget {
   final int id;
-  const RecipeDetailView({super.key, @PathParam('id') required this.id});
+  final String name, url;
+  const RecipeDetailView({
+    super.key,
+    @PathParam('id') required this.id,
+    required this.name,
+    required this.url,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +34,8 @@ class RecipeDetailView extends StatelessWidget {
             delegate: CustomSliverAppBarDelegate(
               context,
               expandedHeight: MediaQuery.of(context).size.height * 0.45,
-              imageAsset: "assets/components/mock_image.jpg",
-              recipeTitle: "One Pot Pasta With Tomato",
+              imageAsset: url,
+              recipeTitle: name,
             ),
             pinned: true,
           ),

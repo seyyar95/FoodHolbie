@@ -6,7 +6,8 @@ import 'package:foodmania/src/utils/constants/extensions.dart';
 import 'package:foodmania/src/utils/constants/text_theme.dart';
 
 class RecipeTitle extends StatelessWidget {
-  const RecipeTitle({super.key});
+  final String name;
+  const RecipeTitle({super.key, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,7 @@ class RecipeTitle extends StatelessWidget {
                 ),
               ),
               Text(
-                "One Pot Pasta with Tomato",
+                name,
                 style: ConstantTextTheme.displayLarge?.copyWith(
                   color: Colors.white,
                   fontSize: 18,

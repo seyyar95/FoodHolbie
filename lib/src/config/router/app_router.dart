@@ -7,7 +7,6 @@ import '../../features/profile/presentation/view/settings_view.dart';
 import '../../features/auth/presentation/view/index.dart'; //Auth
 import '../../features/recipes/domain/entity/recipe_entity.dart';
 import '../../features/recipes/presentation/view/index.dart';
-import '../../features/recipes/presentation/view/result_recipe_view.dart';
 import '../../features/recipes/presentation/view/results_view.dart';
 import '../../shared/view/splash_view.dart';
 part 'app_router.gr.dart';

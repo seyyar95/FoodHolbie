@@ -12,10 +12,8 @@ import 'package:foodmania/src/features/auth/presentation/widgets/footer_text.dar
 import 'package:foodmania/src/utils/constants/extensions.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/text_theme.dart';
-import '../../../../utils/responsive.dart';
 import '../bloc/register/register_bloc.dart';
 import '../bloc/register/register_state.dart';
-import '../widgets/underline.dart';
 
 @RoutePage()
 class RegisterView extends StatefulWidget {
@@ -158,12 +156,12 @@ class _RegisterViewState extends State<RegisterView> {
                                       ),
                                     );
                                   } else {
-                                    context.router.pop();
+                                    context.router.maybePop();
                                   }
                                 },
                                 builder: (context, state) {
                                   if (state is RegisterFailed) {
-                                    return Text('error');
+                                    return const Text('error');
                                   } else {
                                     return const SizedBox();
                                   }

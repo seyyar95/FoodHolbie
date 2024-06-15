@@ -84,24 +84,16 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
             onPressed: () {},
           ),
         ),
-        Opacity(
-          opacity: 1 - shrinkOffset / expandedHeight,
-          child: IconButton(
-            splashRadius: 25,
-            iconSize: 50,
-            icon: SvgPicture.asset(
-              "assets/components/share_appbar_icon.svg",
-            ),
-            onPressed: () {},
-          ),
-        ),
       ],
     );
   }
 
   Widget buildBackground(double shrinkOffset) => Opacity(
         opacity: 1 - shrinkOffset / expandedHeight,
-        child: Image.network(imageAsset, fit: BoxFit.cover),
+        child: Image.network(
+          imageAsset,
+          fit: BoxFit.cover,
+        ),
       );
 
   @override

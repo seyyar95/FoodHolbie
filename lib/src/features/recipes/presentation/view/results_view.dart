@@ -18,7 +18,7 @@ class ResultsView extends StatelessWidget {
           iconSize: 50,
           splashRadius: 25,
           icon: SvgPicture.asset(
-            "assets/components/back-button-2.svg",
+            "assets/components/dark_back_button.svg",
           ),
           onPressed: () => context.router.maybePop(),
         ),

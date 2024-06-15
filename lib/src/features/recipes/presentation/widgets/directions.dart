@@ -28,8 +28,11 @@ class DirectionsStepper extends StatelessWidget {
             children: List.generate(
               steps.length,
               (index) {
-                return _buildStepperItem("1", steps[index],
-                    isLast: index == steps.length - 1);
+                return _buildStepperItem(
+                  "${index + 1}",
+                  steps[index],
+                  isLast: index == steps.length - 1,
+                );
               },
             ),
           ),

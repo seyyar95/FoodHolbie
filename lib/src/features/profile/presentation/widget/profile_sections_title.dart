@@ -23,7 +23,7 @@ class ProfileSectionTitle extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(left: 4),
               child: IconButton(
-                onPressed: () => context.router.pop(),
+                onPressed: () => context.router.maybePop(),
                 icon: Icon(
                   Icons.arrow_back_ios,
                   color: Colors.black,

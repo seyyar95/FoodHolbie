@@ -138,38 +138,21 @@ class _IngredientsState extends State<Ingredients> {
     final String amountText = (parsedAmount * _serve).toStringAsFixed(0);
 
     return Padding(
-      padding: EdgeInsets.only(bottom: 16.h),
+      padding: EdgeInsets.only(bottom: 16.h, left: 12, right: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            width: 32,
-            child: Image.asset(
-              ingredientPhoto,
-            ),
+          Image.asset(
+            ingredientPhoto,
           ),
-          SizedBox(
-            width: 52.w,
+          Text(
+            "$amountText $unit",
+            style: ConstantTextTheme.displayMedium?.copyWith(fontSize: 16),
           ),
-          Container(
-            width: 60,
-            padding: const EdgeInsets.symmetric(horizontal: 2),
-            child: Text(
-              "$amountText $unit",
-              style: ConstantTextTheme.displayMedium?.copyWith(fontSize: 16),
-            ),
-          ),
-          SizedBox(
-            width: 42.w,
-          ),
-          Container(
-            width: 55.w,
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: Text(
-              ingredientName,
-              style: ConstantTextTheme.displayMedium?.copyWith(fontSize: 16),
-            ),
+          Text(
+            ingredientName,
+            style: ConstantTextTheme.displayMedium?.copyWith(fontSize: 16),
           )
         ],
       ),

@@ -15,8 +15,6 @@ import 'package:foodmania/src/shared/widgets/button.dart';
 import 'package:foodmania/src/utils/responsive.dart';
 import '../../../../utils/constants/snackbars.dart';
 import '../../../../utils/loading_overlay.dart';
-import '../widgets/home_view_textfield.dart';
-import '../widgets/recipe_card.dart';
 
 @RoutePage()
 class HomeView extends StatefulWidget {

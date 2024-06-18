@@ -37,4 +37,7 @@ abstract class RecipeSearchService {
   Future<HttpResponse> saveRecipe(
     @Body() Map<String, dynamic> body,
   );
+
+  @GET(savedEndPoint)
+  Future<HttpResponse> getSavedRecipes();
 }

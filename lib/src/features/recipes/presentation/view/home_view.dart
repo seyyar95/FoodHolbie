@@ -94,13 +94,9 @@ class _HomeViewState extends State<HomeView> {
                 BlocConsumer<HomeRecipeBloc, HomeRecipeState>(
                   listener: (context, state) {
                     if (state is HomeRecipeSuccess) {
-                      context.router.pushNamed('/results');
-                      //_loadingOverlay.hide();
-                      if (!context.isPlatformWeb) {
-                        context.router.push(
-                          ResultsRoute(recipes: state.recipes!),
-                        );
-                      }
+                      context.router.push(
+                        ResultsRoute(recipes: state.recipes!),
+                      );
                     } else if (state is HomeRecipeLoading) {
                       //_loadingOverlay.show(context);
                     } else if (state is HomeRecipeFailed) {

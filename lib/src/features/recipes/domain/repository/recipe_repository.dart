@@ -6,5 +6,6 @@ abstract class RecipeRespository {
   Future<DataState<DetailEntity>> recipeDetail(int id);
   Future<DataState<List<RecipeEntity>>> searchByName(String name);
   Future<DataState<List<RecipeEntity>>> searchInitial();
-  Future<DataState<List<RecipeEntity>>> saveRecipe(int recipeId);
+  Future<DataState<int>> saveRecipe(int recipeId);
+  Future<DataState<List<RecipeEntity>>> getSavedRecipes();
 }

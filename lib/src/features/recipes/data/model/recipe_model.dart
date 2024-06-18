@@ -33,14 +33,12 @@ class DetailModel extends DetailEntity {
 }
 
 class IngredientModel extends IngredientEntity {
-  const IngredientModel({
-    super.quantity,
-    super.name,
-  });
+  const IngredientModel({super.quantity, super.name, super.img});
   factory IngredientModel.fromJson(Map<String, dynamic> json) {
     return IngredientModel(
       name: json['name'],
       quantity: json['quantity'],
+      img: json['img'],
     );
   }
 }

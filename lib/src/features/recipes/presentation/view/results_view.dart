@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodmania/src/features/recipes/domain/entity/recipe_entity.dart';
+import 'package:foodmania/src/features/recipes/presentation/bloc/save_recipe/save_recipe_bloc.dart';
 import 'package:foodmania/src/features/recipes/presentation/widgets/recipe_card.dart';
 import 'package:foodmania/src/utils/constants/extensions.dart';
 
@@ -35,10 +37,16 @@ class ResultsView extends StatelessWidget {
             mainAxisSpacing: 16,
             crossAxisSpacing: 15,
           ),
-          itemBuilder: (context, index) => RecipeCard(
-            name: recipes[index].name,
-            id: recipes[index].id!,
-            url: recipes[index].url,
+          itemBuilder: (context, index) =>
+              BlocBuilder<SaveRecipeBloc, SaveRecipeState>(
+            builder: (context, state) {
+              return RecipeCard(
+                name: recipes[index].name,
+                id: recipes[index].id!,
+                url: recipes[index].url,
+                iconChecker: Saved.savedRecipes.contains(recipes[index].id),
+              );
+            },
           ),
           itemCount: recipes.length,
         ),

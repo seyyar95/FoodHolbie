@@ -15,37 +15,56 @@ class MainView extends StatelessWidget {
   const MainView({super.key});
 
   final List<Widget> navItems = const [
-    NavigationItem(title: 'Home', routeName: '/main/home'),
-    NavigationItem(title: 'Recipe', routeName: '/main/recipe',),
-    NavigationItem(title: 'Saved', routeName: '/main/saved',),
-    NavigationItem(title: 'Profile', routeName: '/main/profile',),
+    NavigationItem(
+      title: 'Home',
+      routeName: '/main/home',
+    ),
+    NavigationItem(
+      title: 'Recipe',
+      routeName: '/main/recipe',
+    ),
+    NavigationItem(
+      title: 'Saved',
+      routeName: '/main/saved',
+    ),
+    NavigationItem(
+      title: 'Profile',
+      routeName: '/main/profile',
+    ),
   ];
-
 
   @override
   Widget build(BuildContext context) {
     return AutoTabsScaffold(
-      routes: const [HomeRoute(), RecipeRoute(), SavedRoute(), ProfileRoute()],
-      extendBody: true,
-      bottomNavigationBuilder: (context, tabsRouter) {
-        return LayoutBuilder(builder: (context, constraints) {
-          if (constraints.maxWidth < 480) {
-            return _MobileNavBar(
-              context: context,
-              tabsRouter: tabsRouter,
-            );
-          } else if (!context.isPlatformWeb && constraints.maxWidth >= 480) {
-            return _TabletNavBar(
-              context: context,
-              tabsRouter: tabsRouter,
-            );
-          } else {
-            return const SizedBox();
-          }
-        });
-      },
-      appBarBuilder: (context, tabsRouter) => context.isPlatformWeb ? _buildAppBar() : AppBar(toolbarHeight: 0,)
-    );
+        routes: const [
+          HomeRoute(),
+          RecipeRoute(),
+          SavedRoute(),
+          ProfileRoute()
+        ],
+        extendBody: true,
+        bottomNavigationBuilder: (context, tabsRouter) {
+          return LayoutBuilder(builder: (context, constraints) {
+            if (constraints.maxWidth < 480) {
+              return _MobileNavBar(
+                context: context,
+                tabsRouter: tabsRouter,
+              );
+            } else if (!context.isPlatformWeb && constraints.maxWidth >= 480) {
+              return _TabletNavBar(
+                context: context,
+                tabsRouter: tabsRouter,
+              );
+            } else {
+              return const SizedBox();
+            }
+          });
+        },
+        appBarBuilder: (context, tabsRouter) => context.isPlatformWeb
+            ? _buildAppBar()
+            : AppBar(
+                toolbarHeight: 0,
+              ));
   }
 
   AppBar _buildAppBar() {

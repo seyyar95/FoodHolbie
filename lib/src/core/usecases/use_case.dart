@@ -29,3 +29,7 @@ abstract class SearchInitialUseCase<Type> {
 abstract class SaveRecipeUseCase<Type> {
   Future<Type> call(int recipeId);
 }
+
+abstract class GetSavedRecipeUseCase<Type> {
+  Future<Type> call();
+}

@@ -67,7 +67,7 @@ class _IngredientsState extends State<Ingredients> {
               (index) {
                 IngredientEntity ingredient = widget.ingredients[index];
                 return _buildIngredientItem(
-                  ingredientPhoto: "assets/components/carrot_mock.png",
+                  ingredientPhoto: ingredient.img!,
                   ingredientName: ingredient.name!,
                   ingredientAmount: ingredient.quantity!,
                 );
@@ -143,8 +143,13 @@ class _IngredientsState extends State<Ingredients> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(
-            ingredientPhoto,
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.network(
+              ingredientPhoto,
+              width: 50,
+              height: 50,
+            ),
           ),
           Text(
             "$amountText $unit",

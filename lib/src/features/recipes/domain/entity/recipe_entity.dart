@@ -26,12 +26,13 @@ class DetailEntity extends Equatable {
 }
 
 class IngredientEntity extends Equatable {
-  final String? name, quantity;
+  final String? name, quantity, img;
   const IngredientEntity({
     this.name,
     this.quantity,
+    this.img,
   });
 
   @override
-  List<Object?> get props => [name, quantity];
+  List<Object?> get props => [name, quantity, img];
 }

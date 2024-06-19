@@ -5,12 +5,14 @@ class RecipeModel extends RecipeEntity {
     super.id,
     super.name,
     super.url,
+    super.saved,
   });
   factory RecipeModel.fromJson(Map<String, dynamic> json) {
     return RecipeModel(
       id: json['id'],
       name: json['name'],
       url: json['img'],
+      saved: json['saved'],
     );
   }
 }
@@ -19,6 +21,9 @@ class DetailModel extends DetailEntity {
   const DetailModel({
     super.ingredients,
     super.steps,
+    super.degree,
+    super.description,
+    super.time,
   });
   factory DetailModel.fromJson(Map<String, dynamic> json) {
     return DetailModel(
@@ -28,6 +33,9 @@ class DetailModel extends DetailEntity {
           )
           .toList(),
       steps: List<String>.from(json['steps']),
+      degree: json['degree'],
+      description: json['description'],
+      time: json['time'],
     );
   }
 }

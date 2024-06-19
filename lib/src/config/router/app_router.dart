@@ -79,7 +79,7 @@ class AppRouter extends _$AppRouter {
         ),
         AutoRoute(
           page: RecipeDetailRoute.page,
-          path: "/recipe-detail/:id",
+          path: "/recipe-detail",
         ),
       ];
 }

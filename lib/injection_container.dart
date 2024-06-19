@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:foodmania/src/core/resources/dio_cookie_manager.dart';
 import 'package:foodmania/src/core/storage/secure_storage.dart';
-import 'package:foodmania/src/core/usecases/use_case.dart';
 import 'package:foodmania/src/features/auth/data/data_source/auth_api_service.dart';
 import 'package:foodmania/src/features/auth/data/repository/user_repository_impl.dart';
 import 'package:foodmania/src/features/auth/domain/repository/user_repository.dart';

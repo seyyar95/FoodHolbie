@@ -4,8 +4,6 @@ import 'package:foodmania/src/features/recipes/data/datasource/search_recipe_ser
 import 'package:foodmania/src/features/recipes/domain/entity/recipe_entity.dart';
 import 'package:foodmania/src/features/recipes/domain/repository/recipe_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:foodmania/src/features/recipes/presentation/bloc/save_recipe/save_recipe_bloc.dart';
-
 import '../model/recipe_model.dart';
 
 class RecipeRepositoryImpl implements RecipeRespository {
@@ -142,10 +140,6 @@ class RecipeRepositoryImpl implements RecipeRespository {
         },
       );
       if (httpResponse.response.statusCode == 201) {
-        Saved.savedRecipes.add(httpResponse.data['id']);
-        return DataSuccess(httpResponse.data['id']);
-      } else if (httpResponse.response.statusCode == 200) {
-        Saved.savedRecipes.remove(httpResponse.data['id']);
         return DataSuccess(httpResponse.data['id']);
       } else {
         return DataFailed(

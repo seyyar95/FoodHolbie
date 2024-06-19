@@ -37,9 +37,9 @@ class _RecipeCardState extends State<RecipeCard> {
           children: [
             InkWell(
               onTap: () {
-                context
-                    .read<RecipeDetailBloc>()
-                    .add(RecipeDetail(id: widget.id));
+                context.read<RecipeDetailBloc>().add(
+                      RecipeDetail(id: widget.id),
+                    );
                 context.router.push(
                   RecipeDetailRoute(
                     id: widget.id,

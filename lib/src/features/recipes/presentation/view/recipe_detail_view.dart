@@ -18,7 +18,7 @@ class RecipeDetailView extends StatelessWidget {
   final String name, url;
   const RecipeDetailView({
     super.key,
-    @PathParam('id') required this.id,
+    required this.id,
     required this.name,
     required this.url,
   });
@@ -47,31 +47,32 @@ class RecipeDetailView extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildFoodDescription(
-                      description:
-                          "This One Pot Lightly Creamy Pasta is quick, delicious, and your new favorite pasta dish. Cemembert, mushrooms, tomatoes, peas, and basil make up this unbelievably amazing dish!",
-                    ),
+                    if (state is RecipeDetailSuccess)
+                      _buildFoodDescription(
+                        description: state.detail!.description!,
+                      ),
                     SizedBox(
                       height: 44.h,
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _buildShortInformation(
-                          iconAsset: "assets/components/clock_icon.svg",
-                          text: "20 min",
-                          context: context,
-                        ),
-                        SizedBox(
-                          width: 32.w,
-                        ),
-                        _buildShortInformation(
-                          iconAsset: "assets/components/fire_icon.svg",
-                          text: "200",
-                          context: context,
-                        ),
-                      ],
-                    ),
+                    if (state is RecipeDetailSuccess)
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          _buildShortInformation(
+                            iconAsset: "assets/components/clock_icon.svg",
+                            text: state.detail!.time!,
+                            context: context,
+                          ),
+                          SizedBox(
+                            width: 32.w,
+                          ),
+                          _buildShortInformation(
+                            iconAsset: "assets/components/fire_icon.svg",
+                            text: state.detail!.degree!,
+                            context: context,
+                          ),
+                        ],
+                      ),
                     SizedBox(
                       height: 88.h,
                     ),

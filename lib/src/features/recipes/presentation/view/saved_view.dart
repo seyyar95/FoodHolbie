@@ -65,8 +65,7 @@ class _SavedViewState extends State<SavedView> {
                       name: recipes[index].name,
                       id: recipes[index].id!,
                       url: recipes[index].url,
-                      iconChecker:
-                          Saved.savedRecipes.contains(recipes[index].id),
+                      iconChecker: recipes[index].saved!,
                     );
                   },
                 ),
@@ -80,7 +79,9 @@ class _SavedViewState extends State<SavedView> {
               ),
             );
           } else {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           }
         },
       ),

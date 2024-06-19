@@ -247,7 +247,6 @@ class RecipeDetailRoute extends PageRouteInfo<RecipeDetailRouteArgs> {
             name: name,
             url: url,
           ),
-          rawPathParams: {'id': id},
           initialChildren: children,
         );
 

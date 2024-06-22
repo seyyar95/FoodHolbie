@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:foodmania/src/core/resources/dio_cookie_manager.dart';
+import 'package:foodmania/src/core/resources/app_interceptor.dart';
 import 'package:foodmania/src/utils/constants/api_call_constants.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -13,7 +13,7 @@ abstract class RecipeSearchService {
       //validateStatus: (status) => true,
     );
     dio.interceptors.add(
-      CookieManager(),
+      AppInterceptor(),
     );
 
     return _RecipeSearchService(dio);
@@ -40,4 +40,7 @@ abstract class RecipeSearchService {
 
   @GET(savedEndPoint)
   Future<HttpResponse> getSavedRecipes();
+
+  @GET(dailySuggestionEndPoint)
+  Future<HttpResponse> getDailySuggestion();
 }

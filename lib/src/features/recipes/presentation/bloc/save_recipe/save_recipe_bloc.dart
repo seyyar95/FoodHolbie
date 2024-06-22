@@ -8,7 +8,7 @@ part 'save_recipe_event.dart';
 part 'save_recipe_state.dart';
 
 abstract class Saved {
-  static List<int> savedRecipes = [];
+  static Set<int> savedRecipes = <int>{};
 }
 
 class SaveRecipeBloc extends Bloc<SaveRecipeEvent, SaveRecipeState> {
@@ -38,6 +38,11 @@ class SaveRecipeBloc extends Bloc<SaveRecipeEvent, SaveRecipeState> {
             SaveRecipeFailed(e),
           );
         }
+      },
+    );
+    on<ResetEvent>(
+      (event, emit) {
+        emit(SaveRecipeInitial());
       },
     );
   }

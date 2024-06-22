@@ -44,7 +44,6 @@ class ResultsView extends StatelessWidget {
                 name: recipes[index].name,
                 id: recipes[index].id!,
                 url: recipes[index].url,
-                iconChecker: recipes[index].saved!,
               );
             },
           ),

@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:foodmania/src/utils/constants/colors.dart';
 import 'package:foodmania/src/utils/constants/extensions.dart';
 
+import '../../core/storage/secure_storage.dart';
 import '../../utils/constants/text_theme.dart';
 
 @RoutePage()
@@ -55,6 +56,10 @@ class _SplashViewState extends State<SplashView>
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void navigate() async {
+    final String? accessToken = await SecureStorage.readAccessToken();
   }
 
   @override

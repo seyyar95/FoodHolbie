@@ -37,53 +37,62 @@ class _SavedViewState extends State<SavedView> {
         ),
         automaticallyImplyLeading: false,
       ),
-      body: BlocBuilder<GetSavedBloc, GetSavedState>(
-        builder: (context, state) {
-          if (state is GetSavedSuccess) {
-            final List<RecipeEntity> recipes = state.recipes!;
-            Saved.savedRecipes = state.recipes!
-                .map(
-                  (e) => e.id!,
-                )
-                .toList();
-            return Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 15),
-              child: GridView.builder(
-                physics: const BouncingScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: context.mediaQueryWidth < 400
-                      ? 2
-                      : context.mediaQueryWidth ~/ 200,
-                  childAspectRatio: 1.2,
-                  mainAxisSpacing: 16,
-                  crossAxisSpacing: 15,
-                ),
-                itemBuilder: (context, index) =>
-                    BlocBuilder<SaveRecipeBloc, SaveRecipeState>(
-                  builder: (context, state) {
-                    return RecipeCard(
-                      name: recipes[index].name,
-                      id: recipes[index].id!,
-                      url: recipes[index].url,
-                      iconChecker: recipes[index].saved!,
-                    );
-                  },
-                ),
-                itemCount: recipes.length,
-              ),
-            );
-          } else if (state is GetSavedFailed) {
-            return Center(
-              child: Text(
-                state.error!.message.toString(),
-              ),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<GetSavedBloc>().add(const GetSavedEvent());
         },
+        child: ListView(
+          children: [
+            BlocBuilder<GetSavedBloc, GetSavedState>(
+              builder: (context, state) {
+                if (state is GetSavedSuccess) {
+                  final List<RecipeEntity> recipes = state.recipes!;
+                  Saved.savedRecipes = state.recipes!
+                      .map(
+                        (e) => e.id!,
+                      )
+                      .toSet();
+                  return SizedBox(
+                    height: (recipes.length / 2).round() * 180,
+                    child: GridView.builder(
+                      padding: const EdgeInsets.fromLTRB(16, 10, 16, 15),
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: context.mediaQueryWidth < 400
+                            ? 2
+                            : context.mediaQueryWidth ~/ 200,
+                        childAspectRatio: 1.2,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 15,
+                      ),
+                      itemBuilder: (context, index) =>
+                          BlocBuilder<SaveRecipeBloc, SaveRecipeState>(
+                        builder: (context, state) {
+                          return RecipeCard(
+                            name: recipes[index].name,
+                            id: recipes[index].id!,
+                            url: recipes[index].url,
+                          );
+                        },
+                      ),
+                      itemCount: recipes.length,
+                    ),
+                  );
+                } else if (state is GetSavedFailed) {
+                  return Center(
+                    child: Text(
+                      state.error!.message.toString(),
+                    ),
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

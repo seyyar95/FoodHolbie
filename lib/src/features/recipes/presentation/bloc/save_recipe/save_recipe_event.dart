@@ -11,3 +11,10 @@ class SaveID extends SaveRecipeEvent {
   @override
   List<Object?> get props => [id];
 }
+
+class ResetEvent extends SaveRecipeEvent {
+  const ResetEvent();
+
+  @override
+  List<Object?> get props => [];
+}

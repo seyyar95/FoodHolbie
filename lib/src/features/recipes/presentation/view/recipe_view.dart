@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodmania/src/config/router/app_router.dart';
+import 'package:foodmania/src/features/recipes/presentation/bloc/daily_suggestion/daily_suggestion_bloc.dart';
 import 'package:foodmania/src/features/recipes/presentation/bloc/search_recipe/search_recipe_bloc.dart';
 import 'package:foodmania/src/features/recipes/presentation/widgets/recipe_card.dart';
 import 'package:foodmania/src/utils/constants/extensions.dart';
@@ -11,6 +12,9 @@ import 'package:foodmania/src/utils/constants/snackbars.dart';
 import 'package:foodmania/src/utils/constants/text_theme.dart';
 import 'package:foodmania/src/utils/loading_overlay.dart';
 import 'package:foodmania/src/utils/responsive.dart';
+
+import '../../domain/entity/recipe_entity.dart';
+import '../bloc/save_recipe/save_recipe_bloc.dart';
 
 @RoutePage()
 class RecipeView extends StatefulWidget {
@@ -29,6 +33,8 @@ class _RecipeViewState extends State<RecipeView> {
   void initState() {
     super.initState();
     _recipeBloc = BlocProvider.of<SearchRecipeBloc>(context);
+    BlocProvider.of<DailySuggestionBloc>(context)
+        .add(const DailySuggestionEvent());
   }
 
   @override
@@ -41,85 +47,61 @@ class _RecipeViewState extends State<RecipeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () {
-          if (FocusScope.of(context).hasFocus) {
-            FocusScope.of(context).unfocus();
-          }
+      body: RefreshIndicator(
+        onRefresh: () async {
+          context.read<DailySuggestionBloc>().add(const DailySuggestionEvent());
         },
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: CustomScrollView(
-              physics: const BouncingScrollPhysics(),
-              slivers: [
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      SizedBox(
-                        height: 24.h,
-                      ),
-                      _buildSearchField(),
-                      SizedBox(
-                        height: 36.h,
-                      ),
-                      _buildSectionTitle("Gündəlik Tövsiyyə"),
-                      SizedBox(
-                        height: 20.h,
-                      ),
-                      SizedBox(
-                        height: 164.h,
-                        child: _buildHorizontalListView(),
-                      ),
-                      SizedBox(
-                        height: 28.h,
-                      ),
-                    ],
-                  ),
-                ),
-                SliverPersistentHeader(
-                  pinned: true,
-                  delegate: _SectionHeaderDelegate(
-                    child: _buildSectionTitle("Bütün Reseptlər"),
-                  ),
-                ),
-                SliverGrid(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: context.mediaQueryWidth < 400
-                        ? 2
-                        : context.mediaQueryWidth ~/ 200,
-                    childAspectRatio: 1.2,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 15,
-                  ),
-                  delegate: SliverChildBuilderDelegate(
-                    (context, index) =>
-                        const SizedBox(), //const RecipeCard(name: "BigMac"),
-                    childCount: 16,
-                  ),
-                ),
-                SliverPadding(
-                  padding: EdgeInsets.only(bottom: 12.h),
-                  sliver: const SliverToBoxAdapter(),
-                ),
-              ],
+        child: ListView(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          children: [
+            SizedBox(
+              height: 24.h,
             ),
-          ),
+            _buildSearchField(),
+            SizedBox(
+              height: 25.h,
+            ),
+            _buildSectionTitle("Bütün Reseptlər"),
+            BlocBuilder<DailySuggestionBloc, DailySuggestionState>(
+              builder: (context, state) {
+                if (state is DailySuggestionSuccess) {
+                  final List<RecipeEntity> recipes = state.recipes!;
+                  return SizedBox(
+                    height: (recipes.length / 2).round() * 190,
+                    child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: context.mediaQueryWidth < 400
+                            ? 2
+                            : context.mediaQueryWidth ~/ 200,
+                        childAspectRatio: 1.1,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 15,
+                      ),
+                      itemBuilder: (context, index) => RecipeCard(
+                        name: recipes[index].name,
+                        id: recipes[index].id!,
+                        url: recipes[index].url,
+                      ),
+                      itemCount: recipes.length,
+                    ),
+                  );
+                } else if (state is DailySuggestionFailed) {
+                  return Center(
+                    child: Text(
+                      state.error!.message.toString(),
+                    ),
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
+          ],
         ),
       ),
-    );
-  }
-
-  ListView _buildHorizontalListView() {
-    return ListView.separated(
-      scrollDirection: Axis.horizontal,
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (context, index) => const SizedBox(),
-      separatorBuilder: (context, index) => const SizedBox(
-        width: 16,
-      ),
-      itemCount: 5,
     );
   }
 
@@ -128,8 +110,11 @@ class _RecipeViewState extends State<RecipeView> {
       alignment: Alignment.centerLeft,
       child: Text(
         title,
-        style: ConstantTextTheme.displayMedium
-            ?.copyWith(fontSize: 16, letterSpacing: -0.5),
+        style: ConstantTextTheme.displayMedium?.copyWith(
+          fontSize: 16,
+          letterSpacing: -0.5,
+          fontWeight: FontWeight.bold,
+        ),
       ),
     );
   }
@@ -157,7 +142,7 @@ class _RecipeViewState extends State<RecipeView> {
               SearchRecipeByNameInput(value),
             );
           } else {
-            showErrorSnack(context, errorText: 'Boşluğu doldur gijd');
+            showErrorSnack(context, errorText: 'Boşluğu doldur');
           }
         },
         style: ConstantTextTheme.displayMedium,
@@ -197,34 +182,5 @@ class _RecipeViewState extends State<RecipeView> {
         ),
       ),
     );
-  }
-}
-
-class _SectionHeaderDelegate extends SliverPersistentHeaderDelegate {
-  final Widget child;
-
-  _SectionHeaderDelegate({required this.child});
-
-  @override
-  Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
-    return Container(
-      color: Colors.white,
-      child: child,
-    );
-  }
-
-  @override
-  double get maxExtent => 56.0;
-
-  @override
-  double get minExtent => 56.0;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) {
-    return false;
   }
 }

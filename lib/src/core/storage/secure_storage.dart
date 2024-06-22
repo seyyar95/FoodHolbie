@@ -10,4 +10,12 @@ class SecureStorage {
   static Future<void> saveRefreshToken(String refreshToken) async {
     await _storage.write(key: 'refreshToken', value: refreshToken);
   }
+
+  static Future<String?> readAccessToken() async {
+    return _storage.read(key: 'accessToken');
+  }
+
+  static Future<String?> readRefreshToken() async {
+    return _storage.read(key: 'refreshToken');
+  }
 }

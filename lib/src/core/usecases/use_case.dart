@@ -33,3 +33,7 @@ abstract class SaveRecipeUseCase<Type> {
 abstract class GetSavedRecipeUseCase<Type> {
   Future<Type> call();
 }
+
+abstract class GetDailySuggestionUseCase<Type> {
+  Future<Type> call();
+}

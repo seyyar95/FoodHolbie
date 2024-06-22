@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:foodmania/src/core/resources/dio_cookie_manager.dart';
+import 'package:foodmania/src/core/resources/app_interceptor.dart';
 import 'package:foodmania/src/core/storage/secure_storage.dart';
 import 'package:foodmania/src/features/auth/data/data_source/auth_api_service.dart';
 import 'package:foodmania/src/features/auth/data/repository/user_repository_impl.dart';
@@ -11,11 +11,13 @@ import 'package:foodmania/src/features/auth/presentation/bloc/register/register_
 import 'package:foodmania/src/features/recipes/data/datasource/search_recipe_service.dart';
 import 'package:foodmania/src/features/recipes/data/repository/recipe_repository_impl.dart';
 import 'package:foodmania/src/features/recipes/domain/repository/recipe_repository.dart';
+import 'package:foodmania/src/features/recipes/domain/usecase/get_daily_suggestion_usecase.dart';
 import 'package:foodmania/src/features/recipes/domain/usecase/home_recipe_usecase.dart';
 import 'package:foodmania/src/features/recipes/domain/usecase/recipe_detail_usecase.dart';
 import 'package:foodmania/src/features/recipes/domain/usecase/save_recipe_usecase.dart';
 import 'package:foodmania/src/features/recipes/domain/usecase/search_initial_usecase.dart';
 import 'package:foodmania/src/features/recipes/domain/usecase/searh_recipe_usecase.dart';
+import 'package:foodmania/src/features/recipes/presentation/bloc/daily_suggestion/daily_suggestion_bloc.dart';
 import 'package:foodmania/src/features/recipes/presentation/bloc/get_saved/get_saved_bloc.dart';
 import 'package:foodmania/src/features/recipes/presentation/bloc/home_recipe/home_recipe_bloc.dart';
 import 'package:foodmania/src/features/recipes/presentation/bloc/recipe_detail/recipe_detail_bloc.dart';
@@ -33,7 +35,7 @@ Future<void> initializeDependencies() async {
   //secure storage
   s1.registerLazySingleton<SecureStorage>(() => SecureStorage());
   //interceptor
-  s1.registerLazySingleton<CookieManager>(() => CookieManager());
+  s1.registerLazySingleton<AppInterceptor>(() => AppInterceptor());
   //network service
   s1.registerLazySingleton<AuthNetworkService>(
     () => AuthNetworkService(s1()),
@@ -53,6 +55,9 @@ Future<void> initializeDependencies() async {
   //usecase
   s1.registerLazySingleton<SearchInitialUseCaseImpl>(
     () => SearchInitialUseCaseImpl(s1<RecipeRespository>()),
+  );
+  s1.registerLazySingleton<GetDailySuggestionUseCaseImpl>(
+    () => GetDailySuggestionUseCaseImpl(s1<RecipeRespository>()),
   );
 
   s1.registerLazySingleton<SaveRecipeUseCaseImpl>(
@@ -110,5 +115,9 @@ Future<void> initializeDependencies() async {
 
   s1.registerFactory<SearchRecipeBloc>(
     () => SearchRecipeBloc(s1<SearchRecipeByNameUseCaseImpl>()),
+  );
+
+  s1.registerFactory<DailySuggestionBloc>(
+    () => DailySuggestionBloc(s1<GetDailySuggestionUseCaseImpl>()),
   );
 }

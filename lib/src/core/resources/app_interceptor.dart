@@ -4,23 +4,18 @@ import 'package:foodmania/src/core/storage/secure_storage.dart';
 import 'package:foodmania/src/utils/constants/api_call_constants.dart';
 import 'package:flutter/material.dart';
 
-class CookieManager extends Interceptor {
+class AppInterceptor extends Interceptor {
   Dio? _dio;
   late FlutterSecureStorage _storage;
   String? accessToken;
   String? refreshToken;
 
-  CookieManager() {
+  AppInterceptor() {
     _init();
   }
 
   Future<void> _init() async {
     _storage = const FlutterSecureStorage();
-    if (await _storage.containsKey(key: 'accessToken') &&
-        await _storage.containsKey(key: 'refreshToken')) {
-      accessToken = await _storage.read(key: 'accessToken');
-      refreshToken = await _storage.read(key: 'refreshToken');
-    }
     _dio = Dio();
   }
 
@@ -52,6 +47,7 @@ class CookieManager extends Interceptor {
   ) async {
     debugPrint("Errorumuz: $err");
     if (err.response?.statusCode == 401) {
+      refreshToken = await _storage.read(key: 'refreshToken');
       if (refreshToken != null) {
         String? newAccessToken = await refreshAccessToken(refreshToken!);
         if (newAccessToken != null) {
@@ -69,22 +65,13 @@ class CookieManager extends Interceptor {
   }
 
   Future<Response<dynamic>> _retry(RequestOptions requestOptions) async {
-    final options = Options(
-      method: requestOptions.method,
-      headers: requestOptions.headers,
-    );
-    return _dio!.request<dynamic>(
-      requestOptions.baseUrl + requestOptions.path,
-      data: requestOptions.data,
-      queryParameters: requestOptions.queryParameters,
-      options: options,
-    );
+    return _dio!.fetch<dynamic>(requestOptions);
   }
 
   Future<String?> refreshAccessToken(
     String refreshToken,
   ) async {
-    _dio!.options.headers['Cookie'] = 'refresh_token = $refreshToken';
+    _dio!.options.headers['Authorization'] = 'refresh_token = $refreshToken';
     final response = await _dio!.post(
       baseUrl + loginEndPoint,
       data: {

@@ -9,16 +9,15 @@ import 'package:foodmania/src/features/recipes/presentation/bloc/save_recipe/sav
 import 'package:foodmania/src/utils/constants/text_theme.dart';
 import 'package:foodmania/src/utils/responsive.dart';
 
+// ignore: must_be_immutable
 class RecipeCard extends StatefulWidget {
   final String? name, url;
   final int id;
-  final bool iconChecker;
   const RecipeCard({
     Key? key,
     required this.name,
     required this.id,
     required this.url,
-    required this.iconChecker,
   }) : super(key: key);
 
   @override
@@ -97,23 +96,27 @@ class _RecipeCardState extends State<RecipeCard> {
                       flex: 2,
                       child: SizedBox(
                         width: 12.w,
-                        child: InkWell(
-                          onTap: () {
-                            context.read<SaveRecipeBloc>().add(
-                                  SaveID(id: widget.id),
-                                );
+                        child: BlocBuilder<SaveRecipeBloc, SaveRecipeState>(
+                          builder: (context, state) {
+                            return InkWell(
+                              onTap: () {
+                                context.read<SaveRecipeBloc>().add(
+                                      SaveID(id: widget.id),
+                                    );
+                              },
+                              child: Saved.savedRecipes.contains(widget.id)
+                                  ? SvgPicture.asset(
+                                      "assets/components/bookmark_icon.svg",
+                                      colorFilter: const ColorFilter.mode(
+                                        Colors.white,
+                                        BlendMode.srcIn,
+                                      ),
+                                    )
+                                  : SvgPicture.asset(
+                                      "assets/components/bookmark_unfilled.svg",
+                                    ),
+                            );
                           },
-                          child: widget.iconChecker
-                              ? SvgPicture.asset(
-                                  "assets/components/bookmark_icon.svg",
-                                  colorFilter: const ColorFilter.mode(
-                                    Colors.white,
-                                    BlendMode.srcIn,
-                                  ),
-                                )
-                              : SvgPicture.asset(
-                                  "assets/components/bookmark_unfilled.svg",
-                                ),
                         ),
                       ),
                     )

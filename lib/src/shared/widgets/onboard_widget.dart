@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../utils/constants/text_theme.dart';
+import '../../utils/constants/text_theme.dart';
 
 class OnBoardWidget extends StatelessWidget {
   final String title, image;

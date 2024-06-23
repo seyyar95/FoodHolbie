@@ -14,7 +14,6 @@ import 'package:foodmania/src/utils/constants/text_theme.dart';
 import 'package:foodmania/src/shared/widgets/button.dart';
 import 'package:foodmania/src/utils/responsive.dart';
 import '../../../../utils/constants/snackbars.dart';
-import '../../../../utils/loading_overlay.dart';
 
 @RoutePage()
 class HomeView extends StatefulWidget {
@@ -26,7 +25,6 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   final bool isExpanded = false;
-  final LoadingOverlay _loadingOverlay = LoadingOverlay();
   late final HomeRecipeBloc _recipeBloc;
 
   @override
@@ -48,7 +46,7 @@ class _HomeViewState extends State<HomeView> {
     List<String> vegetables = [
       'Flour',
       'Sugar',
-      'Eggs',
+      'Egg',
       'Badimcan',
       'Kartof',
       'Tomato',

@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:foodmania/src/features/onboard/domain/models/onboard.dart';
-import 'package:foodmania/src/features/onboard/presentation/widgets/onboard_button.dart';
-import 'package:foodmania/src/features/onboard/presentation/widgets/onboard_widget.dart';
+import 'package:foodmania/src/core/storage/secure_storage.dart';
+import 'package:foodmania/src/shared/widgets/onboard_button.dart';
+import 'package:foodmania/src/shared/widgets/onboard_widget.dart';
 
-import '../../../../utils/constants/text_theme.dart';
+import '../../utils/constants/text_theme.dart';
 
 @RoutePage()
 class OnBoardView extends StatefulWidget {
@@ -59,24 +59,6 @@ class _OnBoardViewState extends State<OnBoardView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    /*DropdownButton(
-                      style: Utils.textStyle,
-                      items: [
-                        DropdownMenuItem(
-                          value: 'Data',
-                          child: Text('data'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'Data1',
-                          child: Text('data'),
-                        ),
-                        DropdownMenuItem(
-                          value: 'Data2',
-                          child: Text('data'),
-                        ),
-                      ],
-                      onChanged: (object) {},
-                    ),*/
                     TextButton(
                       onPressed: () {},
                       child: Row(
@@ -133,6 +115,11 @@ class _OnBoardViewState extends State<OnBoardView> {
                           curve: Curves.easeIn,
                         );
                       } else {
+                        Future.microtask(
+                          () {
+                            SecureStorage.saveOnBoard('state');
+                          },
+                        );
                         context.router.replaceNamed('/login-general');
                       }
                     },
@@ -145,4 +132,13 @@ class _OnBoardViewState extends State<OnBoardView> {
       ),
     );
   }
+}
+
+class OnBoard {
+  String imageUrl;
+  String title;
+  OnBoard({
+    required this.imageUrl,
+    required this.title,
+  });
 }

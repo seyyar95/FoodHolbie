@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:foodmania/src/config/router/app_router.dart';
 import 'package:foodmania/src/utils/constants/colors.dart';
 import 'package:foodmania/src/utils/constants/extensions.dart';
 
@@ -60,10 +61,24 @@ class _SplashViewState extends State<SplashView>
 
   void navigate() async {
     final String? accessToken = await SecureStorage.readAccessToken();
+    if (accessToken == null) {
+      final String? onBoard = await SecureStorage.readOnBoard();
+      if (onBoard == null) {
+        context.router.replaceAll([const OnBoardRoute()]);
+      } else {
+        context.router.replaceAll([const LoginGeneralRoute()]);
+      }
+    } else {
+      context.router.replaceAll([const MainRoute()]);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(
+      const Duration(seconds: 3),
+      () => navigate(),
+    );
     return Scaffold(
       body: Center(
         child: SizedBox(

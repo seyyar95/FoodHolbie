@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ProfileEditTextField extends StatefulWidget {
-  const ProfileEditTextField({super.key});
+  final TextEditingController controller;
+  final String hintText;
+  const ProfileEditTextField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+  });
 
   @override
   State<ProfileEditTextField> createState() => _ProfileEditTextFieldState();
@@ -10,9 +16,12 @@ class ProfileEditTextField extends StatefulWidget {
 class _ProfileEditTextFieldState extends State<ProfileEditTextField> {
   @override
   Widget build(BuildContext context) {
-    return const TextField(
+    return TextField(
+      controller: widget.controller,
+      onTapOutside: (event) => FocusScope.of(context).unfocus(),
       decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
+        hintText: widget.hintText,
+        enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(
             color: Colors.black,
           ),

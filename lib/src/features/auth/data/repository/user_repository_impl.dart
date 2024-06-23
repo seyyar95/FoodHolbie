@@ -20,8 +20,10 @@ class UserRepositoryImpl implements UserRepository {
       );
 
       if (httpResponse.response.statusCode == 200) {
-        print(httpResponse.response.data);
         final responseData = httpResponse.response.data;
+        await SecureStorage.savePassword(
+          password,
+        );
         await SecureStorage.saveAccessToken(
           responseData['access'],
         );

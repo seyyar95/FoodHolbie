@@ -72,19 +72,6 @@ class CustomSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
         },
         splashRadius: 25,
       ),
-      actions: [
-        Opacity(
-          opacity: 1 - shrinkOffset / expandedHeight,
-          child: IconButton(
-            splashRadius: 25,
-            iconSize: 50,
-            icon: SvgPicture.asset(
-              "assets/components/bookmark_appbar_icon.svg",
-            ),
-            onPressed: () {},
-          ),
-        ),
-      ],
     );
   }
 

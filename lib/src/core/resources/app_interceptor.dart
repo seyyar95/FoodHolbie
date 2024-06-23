@@ -71,21 +71,17 @@ class AppInterceptor extends Interceptor {
   Future<String?> refreshAccessToken(
     String refreshToken,
   ) async {
-    _dio!.options.headers['Authorization'] = 'refresh_token = $refreshToken';
-    final response = await _dio!.post(
-      baseUrl + loginEndPoint,
-      data: {
-        "refresh_token": refreshToken,
-      },
+    final Dio dio = Dio();
+    dio.options.headers['Authorization'] = 'Bearer $refreshToken';
+    final response = await dio.post(
+      baseUrl + refreshTokenEndPoint,
     );
     if (response.statusCode == 200) {
       String newAccessToken = response.data['access_token'];
-      String newRefreshToken = response.data['refresh_token'];
       await SecureStorage.saveAccessToken(newAccessToken);
-      await SecureStorage.saveRefreshToken(newRefreshToken);
       return newAccessToken;
     } else {
-      print('else');
+      print('refresh token error');
     }
     return null;
   }

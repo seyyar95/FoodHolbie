@@ -6,4 +6,5 @@ const String searchEndPoint = '/search_foods_by_name';
 const String detailEndPoint = '/details';
 const String savedEndPoint = '/save';
 const String dailySuggestionEndPoint = '/daily_suggestion';
-//const String refreshTokenEndPoint = '/refresh';
+const String refreshTokenEndPoint = '/refresh';
+const String profileEndPoint = '/update';

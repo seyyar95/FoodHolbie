@@ -7,6 +7,7 @@ import 'package:foodmania/src/config/router/app_router.dart';
 import 'package:foodmania/src/config/themes/app_theme.dart';
 import 'package:foodmania/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:foodmania/src/features/auth/presentation/bloc/register/register_bloc.dart';
+import 'package:foodmania/src/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:foodmania/src/features/recipes/presentation/bloc/daily_suggestion/daily_suggestion_bloc.dart';
 import 'package:foodmania/src/features/recipes/presentation/bloc/get_saved/get_saved_bloc.dart';
 import 'package:foodmania/src/features/recipes/presentation/bloc/home_recipe/home_recipe_bloc.dart';
@@ -56,6 +57,9 @@ Future<void> main() async {
         ),
         BlocProvider(
           create: (_) => s1<DailySuggestionBloc>(),
+        ),
+        BlocProvider(
+          create: (_) => s1<ProfileBloc>(),
         ),
         ChangeNotifierProvider<HomeViewProvider>(
           create: (_) => HomeViewProvider(),

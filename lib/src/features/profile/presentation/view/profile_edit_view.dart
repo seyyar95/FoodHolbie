@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:foodmania/src/core/storage/secure_storage.dart';
+import 'package:foodmania/src/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:foodmania/src/features/profile/presentation/widget/profile_edit_button.dart';
 import 'package:foodmania/src/features/profile/presentation/widget/profile_edit_textfield.dart';
 import '../widget/profile_sections_title.dart';
@@ -14,9 +17,34 @@ class ProfileEditView extends StatefulWidget {
 }
 
 class _ProfileEditViewState extends State<ProfileEditView> {
+  final List<TextEditingController> controllers = [
+    TextEditingController(),
+    TextEditingController(),
+    TextEditingController(),
+  ];
+  final List<String> hintText = [
+    'Name',
+    'Email',
+    'Password',
+  ];
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) async {
+        final profile =
+            BlocProvider.of<ProfileBloc>(context, listen: false).state.profile!;
+        controllers[0].text = profile.name!;
+        controllers[1].text = profile.email!;
+        controllers[2].text = await SecureStorage.readPassword() ?? '';
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -34,15 +62,6 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                 flex: 15,
                 child: Column(
                   children: [
-                    Container(
-                      width: 86.w,
-                      height: 86.h,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.amber,
-                      ),
-                    ),
-                    SizedBox(height: 80.h),
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
                       height: 272.h,
@@ -51,17 +70,35 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                         itemBuilder: (context, index) {
                           return SizedBox(
                             height: 44.h,
-                            child: const ProfileEditTextField(),
+                            child: ProfileEditTextField(
+                              controller: controllers[index],
+                              hintText: hintText[index],
+                            ),
                           );
                         },
                         separatorBuilder: (context, index) {
                           return SizedBox(height: 32.h);
                         },
-                        itemCount: 4,
+                        itemCount: 3,
                       ),
                     ),
-                    SizedBox(height: 171.h),
-                    ProfileEditButton(fun: () {})
+                    const Spacer(),
+                    ProfileEditButton(
+                      fun: () async {
+                        context.read<ProfileBloc>().add(
+                              UpdateUserData(
+                                {
+                                  'name': controllers[0].text,
+                                  'email': controllers[1].text,
+                                  'password': controllers[2].text
+                                },
+                              ),
+                            );
+                        await SecureStorage.savePassword(controllers[2].text);
+                        context.router.maybePop();
+                      },
+                    ),
+                    const SizedBox(height: 100),
                   ],
                 ),
               )

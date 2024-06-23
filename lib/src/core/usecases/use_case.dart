@@ -37,3 +37,11 @@ abstract class GetSavedRecipeUseCase<Type> {
 abstract class GetDailySuggestionUseCase<Type> {
   Future<Type> call();
 }
+
+abstract class GetUserDataUseCase<Type> {
+  Future<Type> call();
+}
+
+abstract class UpdateUserDataUseCase<Type> {
+  Future<Type> call(Map<String, dynamic> body);
+}

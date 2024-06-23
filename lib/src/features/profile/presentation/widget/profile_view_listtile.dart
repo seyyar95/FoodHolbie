@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:foodmania/src/config/router/app_router.dart';
 import '../../../../utils/constants/text_theme.dart';
 
 class ProfileListTile extends StatelessWidget {
@@ -19,7 +20,7 @@ class ProfileListTile extends StatelessWidget {
       onTap: () {
         switch (index) {
           case 0:
-            context.router.pushNamed('/profile-edit');
+            context.router.push(ProfileEditRoute());
             break;
           case 1:
             context.router.pushNamed('/settings');
@@ -54,14 +55,3 @@ class ProfileListTile extends StatelessWidget {
     );
   }
 }
-/*
-Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SvgPicture.asset('assetName'),
-          SizedBox(width: 27.w),
-          Text('data',style: Utils.textStyle),
-          
-        ],
-      ),
-*/

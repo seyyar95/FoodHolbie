@@ -31,27 +31,6 @@ class _IngredientsState extends State<Ingredients> {
     });
   }
 
-  double _parseIngredientAmount(String ingredientAmount) {
-    final RegExp regex = RegExp(r'(\d+(?:\.\d+)?)');
-    final match = regex.firstMatch(ingredientAmount);
-    if (match != null) {
-      final String value = match.group(0)!;
-      return double.parse(value);
-    } else {
-      return 0.0;
-    }
-  }
-
-  String _parseIngredientUnit(String ingredientAmount) {
-    final RegExp regex = RegExp(r'(g|gram|cup)');
-    final match = regex.firstMatch(ingredientAmount.toLowerCase());
-    if (match != null) {
-      return match.group(0)!;
-    } else {
-      return "";
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -74,16 +53,6 @@ class _IngredientsState extends State<Ingredients> {
               },
             ),
           ),
-          // _buildIngredientItem(
-          //   ingredientPhoto: "assets/components/carrot_mock.png",
-          //   ingredientName: "Carrot",
-          //   ingredientAmount: "5 cup",
-          // ),
-          // _buildIngredientItem(
-          //   ingredientPhoto: "assets/components/carrot_mock.png",
-          //   ingredientName: "Paprika tozu",
-          //   ingredientAmount: "6",
-          // ),
           SizedBox(
             height: 40.h,
           ),
@@ -133,10 +102,6 @@ class _IngredientsState extends State<Ingredients> {
     required String ingredientName,
     required String ingredientAmount,
   }) {
-    final double parsedAmount = _parseIngredientAmount(ingredientAmount);
-    final String unit = _parseIngredientUnit(ingredientAmount);
-    final String amountText = (parsedAmount * _serve).toStringAsFixed(0);
-
     return Padding(
       padding: EdgeInsets.only(bottom: 16.h, left: 12, right: 12),
       child: Row(
@@ -151,9 +116,14 @@ class _IngredientsState extends State<Ingredients> {
               height: 50,
             ),
           ),
-          Text(
-            "$amountText $unit",
-            style: ConstantTextTheme.displayMedium?.copyWith(fontSize: 16),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 80.0),
+              child: Text(
+                ingredientAmount,
+                style: ConstantTextTheme.displayMedium?.copyWith(fontSize: 16),
+              ),
+            ),
           ),
           Text(
             ingredientName,

@@ -47,59 +47,63 @@ class _RecipeViewState extends State<RecipeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: RefreshIndicator(
-        onRefresh: () async {
-          context.read<DailySuggestionBloc>().add(const DailySuggestionEvent());
-        },
-        child: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          children: [
-            SizedBox(
-              height: 24.h,
-            ),
-            _buildSearchField(),
-            SizedBox(
-              height: 25.h,
-            ),
-            _buildSectionTitle("Bütün Reseptlər"),
-            BlocBuilder<DailySuggestionBloc, DailySuggestionState>(
-              builder: (context, state) {
-                if (state is DailySuggestionSuccess) {
-                  final List<RecipeEntity> recipes = state.recipes!;
-                  return SizedBox(
-                    height: (recipes.length / 2).round() * 190,
-                    child: GridView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: context.mediaQueryWidth < 400
-                            ? 2
-                            : context.mediaQueryWidth ~/ 200,
-                        childAspectRatio: 1.1,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 15,
+      body: SafeArea(
+        child: RefreshIndicator(
+          onRefresh: () async {
+            context
+                .read<DailySuggestionBloc>()
+                .add(const DailySuggestionEvent());
+          },
+          child: ListView(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            children: [
+              SizedBox(
+                height: 24.h,
+              ),
+              _buildSearchField(),
+              SizedBox(
+                height: 25.h,
+              ),
+              _buildSectionTitle("Bütün Reseptlər"),
+              BlocBuilder<DailySuggestionBloc, DailySuggestionState>(
+                builder: (context, state) {
+                  if (state is DailySuggestionSuccess) {
+                    final List<RecipeEntity> recipes = state.recipes!;
+                    return SizedBox(
+                      height: (recipes.length / 2).round() * 190,
+                      child: GridView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: context.mediaQueryWidth < 400
+                              ? 2
+                              : context.mediaQueryWidth ~/ 200,
+                          childAspectRatio: 1.1,
+                          mainAxisSpacing: 16,
+                          crossAxisSpacing: 15,
+                        ),
+                        itemBuilder: (context, index) => RecipeCard(
+                          name: recipes[index].name,
+                          id: recipes[index].id!,
+                          url: recipes[index].url,
+                        ),
+                        itemCount: recipes.length,
                       ),
-                      itemBuilder: (context, index) => RecipeCard(
-                        name: recipes[index].name,
-                        id: recipes[index].id!,
-                        url: recipes[index].url,
+                    );
+                  } else if (state is DailySuggestionFailed) {
+                    return Center(
+                      child: Text(
+                        state.error!.message.toString(),
                       ),
-                      itemCount: recipes.length,
-                    ),
-                  );
-                } else if (state is DailySuggestionFailed) {
-                  return Center(
-                    child: Text(
-                      state.error!.message.toString(),
-                    ),
-                  );
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
-            ),
-          ],
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

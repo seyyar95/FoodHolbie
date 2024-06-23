@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import '../../features/onboard/presentation/view/onboard_view.dart';
+import '../../shared/view/onboard_view.dart';
 import '../../features/profile/presentation/view/profile_edit_view.dart';
 import '../../features/profile/presentation/view/profile_view.dart';
 import '../../features/profile/presentation/view/settings_view.dart';
@@ -18,7 +18,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: SplashRoute.page,
           path: '/splash',
-          //initial: true,
+          initial: true,
         ),
         AutoRoute(
           page: OnBoardRoute.page,
@@ -27,7 +27,7 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: LoginGeneralRoute.page,
           path: "/login-general",
-          initial: true,
+          //initial: true,
         ),
         CupertinoRoute(
           page: LoginWithEmailRoute.page,

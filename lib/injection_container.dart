@@ -8,6 +8,12 @@ import 'package:foodmania/src/features/auth/domain/usecase/login_usecase.dart';
 import 'package:foodmania/src/features/auth/domain/usecase/register_usecase.dart';
 import 'package:foodmania/src/features/auth/presentation/bloc/login/login_bloc.dart';
 import 'package:foodmania/src/features/auth/presentation/bloc/register/register_bloc.dart';
+import 'package:foodmania/src/features/profile/data/data_source.dart/profile_service.dart';
+import 'package:foodmania/src/features/profile/data/repository/profile_repo_impl.dart';
+import 'package:foodmania/src/features/profile/domain/repository/profile_repo.dart';
+import 'package:foodmania/src/features/profile/domain/usecase/get_user_data_usecase_impl.dart';
+import 'package:foodmania/src/features/profile/domain/usecase/update_user_data_usecase.dart';
+import 'package:foodmania/src/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:foodmania/src/features/recipes/data/datasource/search_recipe_service.dart';
 import 'package:foodmania/src/features/recipes/data/repository/recipe_repository_impl.dart';
 import 'package:foodmania/src/features/recipes/domain/repository/recipe_repository.dart';
@@ -24,7 +30,6 @@ import 'package:foodmania/src/features/recipes/presentation/bloc/recipe_detail/r
 import 'package:foodmania/src/features/recipes/presentation/bloc/save_recipe/save_recipe_bloc.dart';
 import 'package:foodmania/src/features/recipes/presentation/bloc/search_recipe/search_recipe_bloc.dart';
 import 'package:get_it/get_it.dart';
-
 import 'src/features/recipes/domain/usecase/get_saved_recipe_usecase.dart';
 
 GetIt s1 = GetIt.instance;
@@ -43,13 +48,21 @@ Future<void> initializeDependencies() async {
   s1.registerLazySingleton<RecipeSearchService>(
     () => RecipeSearchService(s1()),
   );
+  s1.registerLazySingleton<ProfileService>(
+    () => ProfileService(s1()),
+  );
 
   //repository
   s1.registerLazySingleton<UserRepository>(
     () => UserRepositoryImpl(s1()),
   );
+
   s1.registerLazySingleton<RecipeRespository>(
     () => RecipeRepositoryImpl(s1()),
+  );
+
+  s1.registerLazySingleton<ProfileRepo>(
+    () => ProfileRepoImpl(s1()),
   );
 
   //usecase
@@ -88,6 +101,14 @@ Future<void> initializeDependencies() async {
     () => RegisterUseCaseImpl(s1<UserRepository>()),
   );
 
+  s1.registerLazySingleton<GetUserDataUsecaseImpl>(
+    () => GetUserDataUsecaseImpl(s1<ProfileRepo>()),
+  );
+
+  s1.registerLazySingleton<UpdateUserDataUsecaseImpl>(
+    () => UpdateUserDataUsecaseImpl(s1<ProfileRepo>()),
+  );
+
   //blocs
   s1.registerFactory<LoginBloc>(
     () => LoginBloc(s1<LoginUseCaseImpl>()),
@@ -119,5 +140,10 @@ Future<void> initializeDependencies() async {
 
   s1.registerFactory<DailySuggestionBloc>(
     () => DailySuggestionBloc(s1<GetDailySuggestionUseCaseImpl>()),
+  );
+
+  s1.registerFactory<ProfileBloc>(
+    () => ProfileBloc(
+        s1<GetUserDataUsecaseImpl>(), s1<UpdateUserDataUsecaseImpl>()),
   );
 }

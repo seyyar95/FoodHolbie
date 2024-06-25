@@ -57,10 +57,7 @@ class _HomeViewState extends State<HomeView> {
       'Milk',
       'Sugar',
       'Yogurt',
-      'American Cheese',
-      'Pancetta',
       'Rice',
-      'Baking Powder',
       'Butter',
       'Olive Oil',
     ];

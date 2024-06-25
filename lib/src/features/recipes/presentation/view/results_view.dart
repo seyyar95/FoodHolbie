@@ -33,7 +33,7 @@ class ResultsView extends StatelessWidget {
             crossAxisCount: context.mediaQueryWidth < 400
                 ? 2
                 : context.mediaQueryWidth ~/ 200,
-            childAspectRatio: 1.2,
+            childAspectRatio: 1,
             mainAxisSpacing: 16,
             crossAxisSpacing: 15,
           ),

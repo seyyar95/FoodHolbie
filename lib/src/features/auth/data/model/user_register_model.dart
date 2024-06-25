@@ -5,15 +5,13 @@ class UserRegisterModel extends UserRegisterEntity {
     String? id,
     String? email,
     String? firstName,
-    String? lastName,
   });
-  
+
   factory UserRegisterModel.fromJson(Map<String, dynamic> json) {
     return UserRegisterModel(
       id: json['id'] ?? '',
       email: json['email'] ?? '',
       firstName: json['first_name'] ?? '',
-      lastName: json['last_name'] ?? '',
     );
   }
 }

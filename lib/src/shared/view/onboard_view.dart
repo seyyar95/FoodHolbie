@@ -50,38 +50,7 @@ class _OnBoardViewState extends State<OnBoardView> {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 22.w),
-              child: Container(
-                height: 129.h,
-                padding: EdgeInsets.only(top: 20.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: Row(
-                        children: [
-                          Text(
-                            'Keç',
-                            style: ConstantTextTheme.displayLarge!.copyWith(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            size: 16.sp,
-                            color: Colors.black,
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            SizedBox(height: 130.h),
             SizedBox(
               height: 430.h,
               width: size.width,

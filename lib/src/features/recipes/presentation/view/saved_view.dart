@@ -53,7 +53,7 @@ class _SavedViewState extends State<SavedView> {
                       )
                       .toSet();
                   return SizedBox(
-                    height: (recipes.length / 2).round() * 180,
+                    height: (recipes.length / 2).round() * 200,
                     child: GridView.builder(
                       padding: const EdgeInsets.fromLTRB(16, 10, 16, 15),
                       physics: const NeverScrollableScrollPhysics(),
@@ -61,7 +61,7 @@ class _SavedViewState extends State<SavedView> {
                         crossAxisCount: context.mediaQueryWidth < 400
                             ? 2
                             : context.mediaQueryWidth ~/ 200,
-                        childAspectRatio: 1.2,
+                        childAspectRatio: 1,
                         mainAxisSpacing: 16,
                         crossAxisSpacing: 15,
                       ),

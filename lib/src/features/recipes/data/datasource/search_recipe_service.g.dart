@@ -13,7 +13,7 @@ class _RecipeSearchService implements RecipeSearchService {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'http://172.25.38.67:5000/api/v1';
+    baseUrl ??= 'http://157.230.24.161:5000/api/v1';
   }
 
   final Dio _dio;

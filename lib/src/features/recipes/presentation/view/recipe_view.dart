@@ -64,7 +64,7 @@ class _RecipeViewState extends State<RecipeView> {
               SizedBox(
                 height: 25.h,
               ),
-              _buildSectionTitle("Bütün Reseptlər"),
+              _buildSectionTitle("Gündəlik tövsiyyələr"),
               BlocBuilder<DailySuggestionBloc, DailySuggestionState>(
                 builder: (context, state) {
                   if (state is DailySuggestionSuccess) {
@@ -77,7 +77,7 @@ class _RecipeViewState extends State<RecipeView> {
                           crossAxisCount: context.mediaQueryWidth < 400
                               ? 2
                               : context.mediaQueryWidth ~/ 200,
-                          childAspectRatio: 1.1,
+                          childAspectRatio: 1,
                           mainAxisSpacing: 16,
                           crossAxisSpacing: 15,
                         ),

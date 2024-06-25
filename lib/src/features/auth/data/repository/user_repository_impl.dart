@@ -63,8 +63,17 @@ class UserRepositoryImpl implements UserRepository {
           'name': firstName,
         },
       );
-      print('status code: ${httpResponse.response.statusCode}');
       if (httpResponse.response.statusCode == 201) {
+        final responseData = httpResponse.response.data;
+        await SecureStorage.savePassword(
+          password,
+        );
+        await SecureStorage.saveAccessToken(
+          responseData['access'],
+        );
+        await SecureStorage.saveRefreshToken(
+          responseData['refresh'],
+        );
         return DataSuccess(
           httpResponse.data,
         );

@@ -60,7 +60,7 @@ class _ProfileViewState extends State<ProfileView> {
                     flex: 7,
                     child: ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 4,
+                      itemCount: 2,
                       itemBuilder: (context, index) => Column(
                         children: [
                           ProfileListTile(index: index),

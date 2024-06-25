@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:foodmania/src/utils/constants/text_theme.dart';
-import 'package:foodmania/src/utils/responsive.dart';
 
 import '../../domain/entity/recipe_entity.dart';
 
@@ -15,21 +13,21 @@ class Ingredients extends StatefulWidget {
 }
 
 class _IngredientsState extends State<Ingredients> {
-  int _serve = 1;
+  // int _serve = 1;
 
-  void _incrementServe() {
-    setState(() {
-      _serve++;
-    });
-  }
+  // void _incrementServe() {
+  //   setState(() {
+  //     _serve++;
+  //   });
+  // }
 
-  void _decrementServe() {
-    setState(() {
-      if (_serve > 1) {
-        _serve--;
-      }
-    });
-  }
+  // void _decrementServe() {
+  //   setState(() {
+  //     if (_serve > 1) {
+  //       _serve--;
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +36,7 @@ class _IngredientsState extends State<Ingredients> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildServeCounter(),
+          // _buildServeCounter(),
           SizedBox(height: 28.h),
           Column(
             children: List.generate(
@@ -61,41 +59,41 @@ class _IngredientsState extends State<Ingredients> {
     );
   }
 
-  Widget _buildServeCounter() {
-    return Row(
-      children: [
-        InkWell(
-          onTap: _decrementServe,
-          child: Responsive(
-            maxWidth: 35,
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset("assets/components/minus_icon.svg"),
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 4.w),
-          child: Text(
-            "Serves $_serve",
-            style: ConstantTextTheme.displayLarge?.copyWith(fontSize: 16),
-          ),
-        ),
-        InkWell(
-          onTap: _incrementServe,
-          child: Responsive(
-            maxWidth: 35,
-            child: SizedBox(
-              height: 24.w,
-              width: 24.w,
-              child: SvgPicture.asset("assets/components/plus_icon.svg"),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
+  // Widget _buildServeCounter() {
+  //   return Row(
+  //     children: [
+  //       InkWell(
+  //         onTap: _decrementServe,
+  //         child: Responsive(
+  //           maxWidth: 35,
+  //           child: SizedBox(
+  //             height: 24.w,
+  //             width: 24.w,
+  //             child: SvgPicture.asset("assets/components/minus_icon.svg"),
+  //           ),
+  //         ),
+  //       ),
+  //       Padding(
+  //         padding: EdgeInsets.symmetric(horizontal: 4.w),
+  //         child: Text(
+  //           "Serves $_serve",
+  //           style: ConstantTextTheme.displayLarge?.copyWith(fontSize: 16),
+  //         ),
+  //       ),
+  //       InkWell(
+  //         onTap: _incrementServe,
+  //         child: Responsive(
+  //           maxWidth: 35,
+  //           child: SizedBox(
+  //             height: 24.w,
+  //             width: 24.w,
+  //             child: SvgPicture.asset("assets/components/plus_icon.svg"),
+  //           ),
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Widget _buildIngredientItem({
     required String ingredientPhoto,

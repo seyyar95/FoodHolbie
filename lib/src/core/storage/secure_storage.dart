@@ -35,4 +35,10 @@ class SecureStorage {
   static Future<String?> readPassword() async {
     return _storage.read(key: 'password');
   }
+
+  static Future<void> deleteAll() async {
+    await _storage.delete(key: 'accessToken');
+    await _storage.delete(key: 'refreshToken');
+    await _storage.delete(key: 'password');
+  }
 }

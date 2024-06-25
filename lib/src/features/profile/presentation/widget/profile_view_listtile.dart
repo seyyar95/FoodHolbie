@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:foodmania/src/config/router/app_router.dart';
+import 'package:foodmania/src/core/storage/secure_storage.dart';
+import 'package:foodmania/src/features/profile/presentation/widget/custom_dialog.dart';
 import '../../../../utils/constants/text_theme.dart';
 
 class ProfileListTile extends StatelessWidget {
@@ -12,19 +14,25 @@ class ProfileListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Map<String, String>> profile = [
       {'picture': 'assets/components/edit_profile.svg', 'text': 'Edit Profile'},
-      {'picture': 'assets/components/settings.svg', 'text': 'Parametrler'},
-      {'picture': 'assets/components/info.svg', 'text': 'Foodmania Haqqinda'},
       {'picture': 'assets/components/exit_account.svg', 'text': 'Çıxış'},
     ];
     return InkWell(
       onTap: () {
         switch (index) {
           case 0:
-            context.router.push(ProfileEditRoute());
+            context.router.push(const ProfileEditRoute());
             break;
           case 1:
-            context.router.pushNamed('/settings');
-            break;
+            showDialog(
+              context: context,
+              builder: (context) => CustomDialog(
+                cancel: () => context.maybePop(),
+                leave: () async {
+                  await SecureStorage.deleteAll();
+                  context.router.replace(const SplashRoute());
+                },
+              ),
+            );
           default:
         }
       },

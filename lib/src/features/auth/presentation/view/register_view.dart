@@ -104,7 +104,7 @@ class _RegisterViewState extends State<RegisterView> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(height: 38.h),
+                        SizedBox(height: 160.h),
                         Padding(
                           padding: EdgeInsets.symmetric(
                             horizontal: context.isPlatformWeb ? 16.w : 16,
@@ -129,15 +129,6 @@ class _RegisterViewState extends State<RegisterView> {
                                 fieldTitle: "Şifrə",
                                 isPasswordField: true,
                                 controller: _passwordController,
-                              ),
-                              SizedBox(
-                                height: 8.h,
-                              ),
-                              const Align(
-                                alignment: Alignment.centerLeft,
-                                child: CheckboxWithText(
-                                  title: "Məni xatırla",
-                                ),
                               ),
                               SizedBox(
                                 height: 41.h,
@@ -182,13 +173,10 @@ class _RegisterViewState extends State<RegisterView> {
                               SizedBox(
                                 height: 18.h,
                               ),
-                              SizedBox(
-                                height: 44.h,
-                              ),
                               const FooterText(
                                 leftTitle: "Artıq hesabın var? ",
                                 rigthTitle: "Daxil ol",
-                                route: LoginGeneralRoute(),
+                                route: LoginWithEmailRoute(),
                               )
                             ],
                           ),

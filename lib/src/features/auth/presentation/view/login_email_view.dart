@@ -177,29 +177,6 @@ class _LoginWithEmailViewState extends State<LoginWithEmailView> {
                           SizedBox(
                             height: 18.h,
                           ),
-                          _buildUnderline(),
-                          SizedBox(
-                            height: 28.h,
-                          ),
-                          Responsive(
-                            maxWidth: 200,
-                            child: SizedBox(
-                              height: 40,
-                              width: 152.w,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  _buildSmallAuthButton("facebook"),
-                                  _buildSmallAuthButton("google"),
-                                  _buildSmallAuthButton("apple"),
-                                ],
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 44.h,
-                          ),
                           const FooterText(
                             leftTitle: "Hesabın yoxdur? ",
                             rigthTitle: "Elə indi yarat",

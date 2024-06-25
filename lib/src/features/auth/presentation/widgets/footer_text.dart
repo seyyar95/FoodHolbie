@@ -33,7 +33,7 @@ class FooterText extends StatelessWidget {
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                context.router.pushNamed('/register');
+                context.router.push(route);
               },
           )
         ],

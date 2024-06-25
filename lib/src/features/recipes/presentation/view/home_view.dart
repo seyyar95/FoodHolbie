@@ -44,13 +44,25 @@ class _HomeViewState extends State<HomeView> {
     final List<String> chosenItems = context.watch<HomeViewProvider>().items;
 
     List<String> vegetables = [
+      'Chicken',
+      'Ground Beef',
       'Flour',
-      'Sugar',
       'Egg',
-      'Badimcan',
-      'Kartof',
+      'Onion',
+      'Potato',
       'Tomato',
+      'Carrot',
+      'Garlic',
       'Cheese',
+      'Milk',
+      'Sugar',
+      'Yogurt',
+      'American Cheese',
+      'Pancetta',
+      'Rice',
+      'Baking Powder',
+      'Butter',
+      'Olive Oil',
     ];
 
     return Scaffold(

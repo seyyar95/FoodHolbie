@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:foodmania/src/shared/view/chat_view.dart';
 import '../../shared/view/onboard_view.dart';
 import '../../features/profile/presentation/view/profile_edit_view.dart';
 import '../../features/profile/presentation/view/profile_view.dart';
@@ -80,6 +81,10 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: RecipeDetailRoute.page,
           path: "/recipe-detail",
+        ),
+        AutoRoute(
+          page: ChatRoute.page,
+          path: '/chat',
         ),
       ];
 }

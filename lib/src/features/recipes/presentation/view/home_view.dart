@@ -51,23 +51,19 @@ class _HomeViewState extends State<HomeView> {
       'Onion',
       'Potato',
       'Tomato',
+      'Milk',
       'Carrot',
       'Garlic',
-      'Cheese',
-      'Milk',
-      'Sugar',
-      'Yogurt',
       'Rice',
+      'Cheese',
+      'Sugar',
       'Butter',
+      'Yogurt',
       'Olive Oil',
     ];
 
     return Scaffold(
-      body: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () {
-          FocusScope.of(context).unfocus();
-        },
+      body: SafeArea(
         child: Row(
           mainAxisSize: MainAxisSize.max,
           children: [
@@ -78,7 +74,7 @@ class _HomeViewState extends State<HomeView> {
                   width: context.isPlatformWeb
                       ? context.mediaQueryWidth * .25
                       : context.mediaQueryWidth,
-                  height: context.mediaQueryHeight * .8,
+                  height: context.mediaQueryHeight * .77,
                   child: ListView(
                     physics: const BouncingScrollPhysics(),
                     padding: EdgeInsets.only(
@@ -120,26 +116,46 @@ class _HomeViewState extends State<HomeView> {
                   },
                   builder: (context, state) => const SizedBox(),
                 ),
-                Responsive(
-                  maxWidth: context.isPlatformWeb
-                      ? context.mediaQueryWidth * .2
-                      : 450,
-                  child: ManiacButton(
-                    onTap: () {
-                      if (chosenItems.isEmpty) {
-                        showErrorSnack(
-                          context,
-                          errorText: 'Ən azı bir ingredient seçin.',
-                        );
-                        return;
-                      }
-                      _recipeBloc.add(
-                        HomeRecipeInput(ingredients: chosenItems),
-                      );
-                    },
-                    title: 'Axtar',
-                  ),
-                )
+                Row(
+                  children: [
+                    Responsive(
+                      maxWidth: context.isPlatformWeb
+                          ? context.mediaQueryWidth * .2
+                          : 250,
+                      child: ManiacButton(
+                        onTap: () {
+                          if (chosenItems.isEmpty) {
+                            showErrorSnack(
+                              context,
+                              errorText: 'Ən azı bir ingredient seçin.',
+                            );
+                            return;
+                          }
+                          _recipeBloc.add(
+                            HomeRecipeInput(ingredients: chosenItems),
+                          );
+                        },
+                        title: 'Axtar',
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    MaterialButton(
+                      height: 56.h,
+                      minWidth: 70.w,
+                      color: Theme.of(context).primaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      onPressed: () {
+                        context.router.pushNamed('/chat');
+                      },
+                      child: const Icon(
+                        Icons.message,
+                        color: Colors.white,
+                      ),
+                    )
+                  ],
+                ),
               ],
             ),
             if (context.isPlatformWeb)
@@ -195,7 +211,7 @@ Column accordion(String title, List<String> items, BuildContext context) {
 Container wrapping(List<String> items, bool chosen, BuildContext context) {
   return Container(
     width: MediaQuery.of(context).size.width,
-    padding: const EdgeInsets.symmetric(horizontal: 16),
+    padding: const EdgeInsets.symmetric(horizontal: 10),
     child: Wrap(
       alignment: WrapAlignment.start,
       crossAxisAlignment: WrapCrossAlignment.start,

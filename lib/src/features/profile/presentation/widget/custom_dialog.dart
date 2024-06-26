@@ -14,7 +14,7 @@ class CustomDialog extends StatelessWidget {
       ),
       shadowColor: Colors.black,
       child: SizedBox(
-        height: 180,
+        height: 190,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

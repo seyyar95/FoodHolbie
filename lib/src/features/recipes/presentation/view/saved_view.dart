@@ -53,7 +53,7 @@ class _SavedViewState extends State<SavedView> {
                       )
                       .toSet();
                   return SizedBox(
-                    height: (recipes.length / 2).round() * 200,
+                    height: (recipes.length / 2).round() * 220,
                     child: GridView.builder(
                       padding: const EdgeInsets.fromLTRB(16, 10, 16, 15),
                       physics: const NeverScrollableScrollPhysics(),
@@ -61,7 +61,7 @@ class _SavedViewState extends State<SavedView> {
                         crossAxisCount: context.mediaQueryWidth < 400
                             ? 2
                             : context.mediaQueryWidth ~/ 200,
-                        childAspectRatio: 1,
+                        childAspectRatio: 0.9,
                         mainAxisSpacing: 16,
                         crossAxisSpacing: 15,
                       ),
@@ -79,10 +79,17 @@ class _SavedViewState extends State<SavedView> {
                     ),
                   );
                 } else if (state is GetSavedFailed) {
-                  return Center(
-                    child: Text(
-                      state.error!.message.toString(),
-                    ),
+                  return Column(
+                    children: [
+                      SizedBox(
+                        height: context.mediaQueryHeight / 2.5,
+                      ),
+                      Center(
+                        child: Text(
+                          state.error!.message.toString(),
+                        ),
+                      ),
+                    ],
                   );
                 } else {
                   return const Center(

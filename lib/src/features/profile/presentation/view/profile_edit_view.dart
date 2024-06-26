@@ -6,6 +6,7 @@ import 'package:foodmania/src/core/storage/secure_storage.dart';
 import 'package:foodmania/src/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:foodmania/src/features/profile/presentation/widget/profile_edit_button.dart';
 import 'package:foodmania/src/features/profile/presentation/widget/profile_edit_textfield.dart';
+import 'package:foodmania/src/utils/constants/text_theme.dart';
 import '../widget/profile_sections_title.dart';
 
 @RoutePage()
@@ -64,16 +65,29 @@ class _ProfileEditViewState extends State<ProfileEditView> {
                   children: [
                     SizedBox(
                       width: MediaQuery.of(context).size.width,
-                      height: 272.h,
+                      height: 300.h,
                       child: ListView.separated(
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
-                          return SizedBox(
-                            height: 44.h,
-                            child: ProfileEditTextField(
-                              controller: controllers[index],
-                              hintText: hintText[index],
-                            ),
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                hintText[index],
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              SizedBox(
+                                height: 44.h,
+                                child: ProfileEditTextField(
+                                  controller: controllers[index],
+                                  hintText: hintText[index],
+                                ),
+                              ),
+                            ],
                           );
                         },
                         separatorBuilder: (context, index) {

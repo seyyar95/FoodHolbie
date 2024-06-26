@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:foodmania/injection_container.dart';
 import 'package:foodmania/src/config/router/app_router.dart';
@@ -15,6 +16,7 @@ import 'package:foodmania/src/features/recipes/presentation/bloc/recipe_detail/r
 import 'package:foodmania/src/features/recipes/presentation/bloc/save_recipe/save_recipe_bloc.dart';
 import 'package:foodmania/src/features/recipes/presentation/bloc/search_recipe/search_recipe_bloc.dart';
 import 'package:foodmania/src/features/recipes/presentation/provider/home_view_provider.dart';
+import 'package:foodmania/src/utils/constants/api_call_constants.dart';
 import 'package:provider/provider.dart';
 
 import 'bloc_observer.dart';
@@ -24,6 +26,7 @@ Future<void> main() async {
   await initializeDependencies();
   Bloc.observer = MyBlocObserver();
   //Set status bar color
+  Gemini.init(apiKey: geminiApiKey);
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarBrightness: Brightness.dark,

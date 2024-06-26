@@ -5,11 +5,13 @@ import 'package:foodmania/src/utils/constants/text_theme.dart';
 class ManiacButton extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
+  final double? width;
 
   const ManiacButton({
     super.key,
     required this.onTap,
     required this.title,
+    this.width = 361,
   });
 
   @override
@@ -26,13 +28,14 @@ class ManiacButton extends StatelessWidget {
           Theme.of(context).primaryColor,
         ),
         minimumSize: MaterialStatePropertyAll<Size>(
-          Size(361.w, 56.h),
+          Size(width!.w, 56.h),
         ),
       ),
       onPressed: onTap,
       child: Text(
         title,
-        style: ConstantTextTheme.displayLarge!.copyWith(fontSize: 18, color: Colors.white),
+        style: ConstantTextTheme.displayLarge!
+            .copyWith(fontSize: 18, color: Colors.white),
       ),
     );
   }

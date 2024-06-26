@@ -8,3 +8,5 @@ const String savedEndPoint = '/save';
 const String dailySuggestionEndPoint = '/daily_suggestion';
 const String refreshTokenEndPoint = '/refresh';
 const String profileEndPoint = '/update';
+//gemini api
+const String geminiApiKey = 'AIzaSyBv68KJNY58niZLhPv08ZAlkHQpEFSW3Fg';

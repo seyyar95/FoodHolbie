@@ -70,7 +70,7 @@ class _RecipeViewState extends State<RecipeView> {
                   if (state is DailySuggestionSuccess) {
                     final List<RecipeEntity> recipes = state.recipes!;
                     return SizedBox(
-                      height: (recipes.length / 2).round() * 190,
+                      height: (recipes.length / 2).round() * 200,
                       child: GridView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
